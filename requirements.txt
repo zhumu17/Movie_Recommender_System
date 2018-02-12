@@ -7,5 +7,9 @@
 \pard\pardeftab720\sl280\partightenfactor0
 
 \f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 Flask==0.12.0\
-Jinja2==2.9.6}
+Flask==0.12.0\
+Jinja2==2.9.6\
+numpy==1.12.1\
+pandas==0.20.3\
+scikit-learn==0.19.0\
+beautifulsoup4==4.6.0}
