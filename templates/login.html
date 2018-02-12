@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/styles1.css">
+</head>
+
+<body id="login-page">
+<header>
+    <nav id="header-nav" class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="pull-left visible-md visible-lg">
+                <div id="logo-img"></div>
+            </a>
+          <div class="navbar-brand">
+            <a href="/"><h1>Movie Recommender</h1></a>
+          </div>
+        </div>
+        <div>
+           <ul id="nav-list" class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/">
+                <span class="glyphicon glyphicon-home"></span><br> Home </a>
+            </li>
+          </ul><!-- #nav-list -->
+        </div><!-- .collapse .navbar-collapse -->
+      </div><!-- .container -->
+    </nav><!-- #header-nav -->
+  </header>
+
+
+    <section class = "section2">
+        <h2  class="text-center">Please Enter Your User ID</h2>
+        <div class="text-center">
+            <p class="text-center-section2">A valid user ID is an integer between 1 to {{numUsers}}</p>
+            <div>
+                <form method="post">
+                    <p><input type="text" name = "LoginUsername" class="user-input"></p>
+                    <div class="button">
+                     <button type="submit" class="btn btn-success btn-lg" value="login"> Enter </button>
+                     <!--<button type="submit" class="glyphicon glyphicon-remove" > Cancel </button>-->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>

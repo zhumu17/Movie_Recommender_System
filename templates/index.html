@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Recommender</title>
+
+      <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+      <link rel="stylesheet" href="../static/css/styles1.css">
+
+  </head>
+<body>
+  <header>
+    <nav id="header-nav" class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="pull-left visible-sm visible-md visible-lg">
+                <div id="logo-img"></div>
+            </a>
+          <div class="navbar-brand">
+            <a href="/"><h1>Movie Recommender</h1></a>
+          </div>
+        </div>
+
+
+
+
+        <div>
+           <ul id="nav-list" class="nav navbar-nav navbar-right ">
+               {% if user%}
+                <li>
+                    <a href="/logout"> <!-- href use the app.route "/logout", rather than manually "/"-->
+                    <span class="glyphicon glyphicon-off"></span><br> Logout</a>
+                </li>
+               {% else %}
+                <li>
+                     <a href="/signup">
+                    <span class="glyphicon glyphicon-edit"></span><br> Sign up</a>
+                </li>
+                <li>
+                    <a href="/login">
+                     <span class="glyphicon glyphicon-user"></span><br> Login</a>
+                </li>
+               {% endif %}
+          </ul><!-- #nav-list -->
+        </div><!-- .collapse .navbar-collapse -->
+      </div><!-- .container -->
+    </nav><!-- #header-nav -->
+  </header>
+
+
+
+
+
+
+
+
+  <div id="main-content" class="container">
+      {% if user %}
+        <h2  class="text-center"> Welcome User #{{ user }}! </h2>
+      {% else %}
+        <h2  class="text-center"> Welcome </h2>
+      {% endif %}
+
+    <div class="text-center">
+        {% if user %}
+            <p class ="text-center-section1"> Here are some movies just recommended for you: </p>
+        {% else %}
+            <p class ="text-center-section1"> Here are some recommended movies. <br> Login to see more customized recommendations.<br>
+                If you don't have an account yet, you can sign up.
+            </p>
+        {% endif %}
+    </div>
+    <section class="row">
+        {% for i in range(12) %}
+          <div class="col-md-3 col-sm-4 col-xs-12">
+
+              <div class="movie-image">
+                  <a href="https://www.google.com/search?q={{itemsRecommended[i]}}">
+                <img width="200" height="200" src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" alt="image not found">
+                <span> <p> {% print(itemsRecommended[i]) %} </p></span>
+                  </a>
+              </div>
+
+          </div>
+        {% endfor %}
+    </section>
+
+
+    <section class="section2">
+    <h2  class="text-center">Want to rate a movie ?</h2>
+    <div class="text-center">
+      <p class="text-center-section1">Please first search by name of movie<br> See if it is in our inventory
+      </p>
+        <div>
+            <form id="formSearch" action="" method="post">
+                <!-- this form MUST USE action="/rateItem" in order to let "/rateItem" to process, if not it will be processed in the "/"-->
+                <p><input type="text" name = "itemName" class="user-input"></p>
+                <!--<p><input type = "submit" value = "Sign up" class  = "text-black"></p>-->
+
+                <span class="button" >
+                    <button type="submit" class="btn btn-success btn-lg  glyphicon glyphicon-search" ></button>
+                </span>
+            </form>
+
+        </div>
+    </div>
+    </section>
+
+
+  </div><!-- End of #main-content -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <footer class="panel-footer">
+    <div class="container">
+      <!--<div class="row">-->
+        <!--<section class="col-sm-4">-->
+          <!--<span>Email:</span>-->
+           <!--zhumu17@gmail.com<br>-->
+          <!--<hr class="visible-xs">-->
+        <!--</section>-->
+        <!--<section class="col-sm-4">-->
+          <!--<span>Address:</span>-->
+          <!--Jersey City, NJ, 07302-->
+
+          <!--<hr class="visible-xs">-->
+        <!--</section>-->
+        <!--<section class="col-sm-4">-->
+          <!--<p>Please feel free to provide your feedback</p>-->
+        <!--</section>-->
+      <!--</div>-->
+      <div class="text-center">Developed by: Mu Zhu,  zhumu17@gmail.com <br> &copy; Copyright Reserved 2018</div>
+    </div>
+  </footer>
+
+  <!-- jQuery (Bootstrap JS plugins depend on it) -->
+
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,339 @@
+
+
+
+/** HEADER **/
+#header-nav {
+  background-color: #000000; /* adjust */
+  opacity: .65;
+  border-radius: 0;
+  border: 0;
+}
+
+#logo-img {
+  background: url('../images/movie_icon2.jpg') no-repeat;
+  background-size: cover;
+  width: 50px;
+  height: 50px;
+  margin: 5px 3px 3px 1px;
+}
+
+
+.navbar-brand {
+  padding-top: 25px;
+}
+.navbar-brand h1 { /* header name */
+  color: white; /* adjust */
+  opacity: 1;
+  font-size: 1.7em;
+  text-shadow: 1px 1px 1px #222;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: .75;
+}
+.navbar-brand a:hover, .navbar-brand a:focus {
+  text-decoration: none;
+}
+
+
+
+#nav-list {
+  margin-top: 2px;
+}
+#nav-list a {
+  color: red;
+  text-align: center;
+}
+#nav-list a:hover {
+  background: grey;
+}
+#nav-list a span {
+  font-size: 1.3em;
+}
+
+
+
+.navbar-header button.navbar-toggle, .navbar-header .icon-bar {
+  border: 1px solid #61122f;
+}
+.navbar-header button.navbar-toggle {
+  clear: both;
+  margin-top: -30px;
+}
+/* END HEADER */
+
+
+/* ============================================================================ */
+
+/* BODY */
+body {
+  font-size: 16px;
+  color: #fff;
+  background-color: #000033;
+  background-image: url('../images/wallpaper2.jpg');
+  background-size: 120%;
+  background-position: center;
+  font-family:  sans-serif;
+
+}
+
+h2{
+
+  font-size: 46px;
+  color: #FFD700;
+}
+
+.text_center {
+    color: #FFD700;
+    margin: 200px;
+}
+
+/* START FIRST SECTION */
+.section1 {
+    margin-bottom: 300px;
+}
+
+
+.text-center-section1 {
+    color: #FFD700;
+    margin: 40px;
+    margin-bottom: 80px;
+    font-size: 20px;
+}
+
+.movie-image {
+  position: relative;
+  border: 2px solid #3F0C1F;
+  overflow: hidden;
+  width: 200px;
+  height: 240px;
+  margin: 0 auto 25px;
+}
+
+.movie-image span {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.0em;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #FFD700;
+}
+.movie-image:hover {
+  box-shadow: 0 1px 5px 1px #cccccc;
+}
+
+#menu-categories-title + div {
+  margin-bottom: 50px;
+  opacity: .5;
+}
+/* END  FIRST SECTION */
+
+
+
+/* START SECOND SECTION */
+.button {
+    font-family: Arial;
+    font: Arial;
+    font-weight: bold;
+    font-size: 30px;
+    border: none;
+    color: #000000;
+    padding: 32px;
+    text-align: center;
+    height: 60px;
+}
+
+.section2 {
+    margin-top: 250px;
+    margin-bottom: 250px;
+}
+
+.text-center-section2 {
+    color: #FFD700;
+    margin: 40px;
+    margin-bottom: 60px;
+    font-size: 20px;
+}
+
+/* END  SECOND SECTION */
+.user-input {
+    color: #000000;
+    font-size: 25px;
+}
+
+
+/* END BODY */
+
+
+
+/* ============================================================================ */
+
+
+/* FOOTER */
+.panel-footer {
+  margin-top: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #000000;
+  border-top: 0;
+  opacity: .8;
+}
+.panel-footer div.row {
+  margin-bottom: 35px;
+}
+
+
+/* END FOOTER */
+
+/* ============================================================================ */
+
+
+
+/* ============================================================================ */
+
+/* LOGIN PAGE */
+#login-page {
+  background-image: url('../images/wallpaper3.jpg');
+  background-size: cover;
+}
+
+
+
+/* ============================================================================ */
+
+
+/* SIGNUP PAGE */
+#signup-page {
+  background-image: url('../images/wallpaper1.jpg');
+  background-size: cover;
+}
+
+/*.container  {
+  box-shadow: 0 0 50px #3F0C1F;
+  border: 2px solid #3F0C1F;
+}*/
+
+.white-boxes {
+  background-color: #000000;
+  padding: 2%;
+  opacity: 0.8;
+}
+
+.text-center-signup {
+    color: white;
+    margin: 30px;
+    font-size: 20px;
+}
+
+.text-form1-signup {
+    color: #000000;
+    font-size: 20px;
+    width: 40px;
+}
+
+.text-form2-signup {
+    color: #000000;
+    font-size: 20px;
+    width: 170px;
+}
+
+.text-dropdown {
+    color: #000000;
+}
+
+.section-signup {
+    margin: 130px;
+}
+
+
+.text-xs {
+    font-size: 13px;
+
+}
+
+
+
+/* ============================================================================ */
+
+
+/* RATE PAGE */
+#rateMovie-page {
+  background-image: url('../images/wallpaper4.jpg');
+  background-size: 125%;
+}
+.checked {
+    color: orange;
+    size: 200%;
+}
+
+.col-xs-12-enlarge {
+
+    height: 200%;
+}
+
+
+.boxes {
+  margin-left: 35%;
+  margin-right: 36%;
+}
+
+
+.rating {
+/*
+    text-align: center;
+*/
+}
+
+/* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
+   follow these rules. Every browser that supports :checked also supports :not(), so
+   it doesn’t make the test unnecessarily selective */
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+    clip:rect(0,0,0,0);
+}
+
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    padding:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:200%;
+    line-height:0;
+    color:#ddd;
+    text-shadow:1px 1px #bbb, 2px 2px #666, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating > input:checked ~ label {
+    color: #f70;
+    text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: gold;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+    color: #ea0;
+    text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
+}
+
+.rating > label:active {
+    position:relative;
+    top:2px;
+    left:2px;
+}
