@@ -8,7 +8,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, json
 import DatabaseQueries
 from SearchInventory import searchItem
-from wtforms import validators
+# from wtforms import validators
 
 app = Flask(__name__)
 
