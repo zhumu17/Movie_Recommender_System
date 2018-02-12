@@ -21,7 +21,7 @@ class Process(object):
 
     # instantiate all together the classes that will be used, and start with training offline models
     def start(self):
-        DatabaseQueries.createTables()
+        # DatabaseQueries.createTables()
         self.modelStore = ModelStore()  # "database" of models
         self.userAnalyzer = UserAnalyzer()  # classify user type: anonymous? registered new? or registered old?
         self.trainingCenter = TrainingCenter(self.modelStore)
