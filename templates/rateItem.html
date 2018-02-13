@@ -50,7 +50,7 @@
         <h2  class="text-center"> We found it! </h2>
 
         <div class="text-center">
-                <p class ="text-center-section1"> How do you think about the movie {{itemToRate}} ?
+                <p class ="text-center-rating"> How do you like about {{itemToRate}} ?
                 </p>
         </div>
 
@@ -65,11 +65,9 @@
 
               </div>
         </section>
-        <section>
-
-            <form method="post">
-
-                <fieldset class="rating boxes">
+        <section class="row ">
+            <form method="post" class="centered  boxes">
+                <fieldset class="rating ">
                     <!--<legend>Please rate:</legend>-->
                     <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Rocks!">5 stars</label>
                     <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
@@ -77,9 +75,8 @@
                     <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Kinda bad">2 stars</label>
                     <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Sucks big time">1 star</label>
                 </fieldset>
-
-                <div class="button">
-                     <button type="submit" class="btn btn-success btn-lg" value="submit"> Submit </button>
+                <div class="button-rate-it">
+                     <button type="submit" class="btn btn-success btn-lg" value="submit"> Rate it </button>
                 </div>
             </form>
         </section>

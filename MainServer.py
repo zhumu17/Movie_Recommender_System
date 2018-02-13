@@ -160,10 +160,14 @@ def rateItemNotFound():
 def page_not_found(error):
     return render_template('404.html')
 
+@app.errorhandler(400)
+def page_not_found(error):
+    return render_template('404.html')
+
 @app.errorhandler(500)
 def value_error(error):
     return render_template('505.html')
 
-
+#
 if __name__ == '__main__':
-    app.run(debug = False)
+    app.run(debug = True)

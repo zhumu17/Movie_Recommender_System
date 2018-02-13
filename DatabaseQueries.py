@@ -123,6 +123,7 @@ def putNewRating(userId, itemId, ratingScore):
     conn.close()
 
 
+
 def replaceTable():
     conn = sqlite3.connect('database.sqlite')
     conn.text_factory = str
@@ -145,6 +146,6 @@ def replaceTable():
 
 
 if __name__ == "__main__":
-  # createTables()
+  createTables()
   # putNewUser(945, 15, 'female', 'artist')
-  putNewRating(1,2,5)
+  # putNewRating(1,2,5)
