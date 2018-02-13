@@ -70,7 +70,7 @@ body {
   color: #fff;
   background-color: #000033;
   background-image: url('../images/wallpaper2.jpg');
-  background-size: 120%;
+  background-size: cover;
   background-position: center;
   font-family:  sans-serif;
 
@@ -263,9 +263,15 @@ h2{
 
 /* RATE PAGE */
 #rateMovie-page {
-  background-image: url('../images/wallpaper4.jpg');
-  background-size: 125%;
+  background-image: url('../images/wallpaper5.jpg');
+  background-size: cover;
 }
+
+#Movie-NotFound-page {
+  background-image: url('../images/wallpaper4.jpg');
+  background-size: cover;
+}
+
 .checked {
     color: orange;
     size: 200%;
