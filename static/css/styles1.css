@@ -89,7 +89,8 @@ h2{
 
 /* START FIRST SECTION */
 .section1 {
-    margin-bottom: 300px;
+    margin-top:200px;
+    margin-bottom: 250px;
 }
 
 
@@ -146,7 +147,7 @@ h2{
 }
 
 .section2 {
-    margin-top: 200px;
+    margin-top: 125px;
     margin-bottom: 250px;
 }
 
