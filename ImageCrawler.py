@@ -3,7 +3,7 @@ import requests
 import re
 import urllib2
 import os
-import cookielib
+# import cookielib
 import json
 
 
@@ -32,7 +32,7 @@ for i in range(len(inventory)):
     query= query.split()
     query='+'.join(query)
     url="https://www.google.com/search?q="+query+"&source=lnms&tbm=isch"
-    print url
+    print (url)
 
 
 
@@ -57,7 +57,7 @@ for i in range(len(inventory)):
         count = count+1
 
 
-    print  "there are total" , len(ActualImages),"images"
+    print ("there are total" , len(ActualImages),"images")
 
     if not os.path.exists(DIR):
                 os.mkdir(DIR)
@@ -73,7 +73,7 @@ for i in range(len(inventory)):
             raw_img = urllib2.urlopen(req).read()
 
             cntr = len([i for i in os.listdir(DIR) if image_type in i]) + 1
-            print cntr
+            # print cntr
             if len(Type)==0:
                 f = open(os.path.join(DIR , name+".jpg"), 'wb')
             else :
@@ -83,5 +83,5 @@ for i in range(len(inventory)):
             f.write(raw_img)
             f.close()
         except Exception as e:
-            print "could not load : "+img
-            print e
+            print ("could not load : "+img)
+            print (e)
