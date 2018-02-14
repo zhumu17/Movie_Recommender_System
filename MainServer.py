@@ -29,9 +29,9 @@ process.start() # initialize all the modules/classes, load all the data in the d
 # Backend API
 ###############################
 
-@app.route('/', methods = ['GET','POST'])
+@app.route('/', methods = ['GET','POST']) # Home page shows recommendations
 def index():
-    # show recommendations
+
     # session.pop('username', None) # for debug purpose
     # session.pop('itemToRate', None)
     # session.pop('itemIdToRate', None)
@@ -91,6 +91,8 @@ def login():
     numUsers = len(DatabaseQueries.getUserFeature())
     if request.method == 'POST':
         userId = request.form['LoginUsername']
+        userId = int(userId)
+
         session['username'] = userId # save cookie
         return redirect(url_for('index'))
 
@@ -156,18 +158,18 @@ def rateItemNotFound():
     return render_template('rateItemNotFound.html')
 
 
+@app.errorhandler(400)
+def value_error(error):
+    return render_template('400.html')
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('404.html')
 
-@app.errorhandler(400)
-def page_not_found(error):
-    return render_template('404.html')
-
 @app.errorhandler(500)
-def value_error(error):
-    return render_template('505.html')
+def internal_server_error(error):
+    return render_template('500.html')
 
 #
 if __name__ == '__main__':
-    app.run(debug = False)
+    app.run(debug = True)

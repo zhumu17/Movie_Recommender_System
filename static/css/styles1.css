@@ -200,7 +200,11 @@ h2{
   background-size: cover;
 }
 
-
+.user-input-login {
+    color: #000000;
+    font-size: 25px;
+    width: 200px;
+}
 
 /* ============================================================================ */
 
@@ -301,11 +305,10 @@ h2{
 }*/
 
 .centered {
-  position: fixed;
-  top: 620px;
-  left: 50%;
+  position: center;
+  top: 750px;
   /* bring your own prefixes */
-  transform: translate(-50%, -60%);
+  transform: translate(-43%, -60%);
 */
 }
 

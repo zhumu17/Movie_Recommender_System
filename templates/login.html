@@ -40,7 +40,7 @@
             <p class="text-center-section2">A valid user ID is an integer between 1 to {{numUsers}}</p>
             <div>
                 <form method="post">
-                    <p><input type="text" name = "LoginUsername" class="user-input"></p>
+                    <p><input type="number" min="1" max="{{numUsers}}" name = "LoginUsername" class="user-input-login"></p>
                     <div class="button">
                      <button type="submit" class="btn btn-success btn-lg" value="login"> Enter </button>
                      <!--<button type="submit" class="glyphicon glyphicon-remove" > Cancel </button>-->
