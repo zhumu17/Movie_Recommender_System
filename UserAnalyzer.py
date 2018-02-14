@@ -19,8 +19,4 @@ class UserAnalyzer(object):
 
         return userType
 
-    def analyzeAction(self, action):
-        if isinstance(action.userId, str):
-            return "unregistered"
-        else:
-            return "registered"
+

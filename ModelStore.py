@@ -3,7 +3,6 @@
 # responsible to send the models to RecEngine
 
 from Models.ClusteringModel import ClusteringModel
-from Models.SimilarItemModel import SimilarItemModel
 from Models.CFmodel import CFmodel
 from Models.MostPopularModel import MostPopularModel
 from Models.KNNmodel import KNNmodel
