@@ -32,10 +32,10 @@ process.start() # initialize all the modules/classes, load all the data in the d
 @app.route('/', methods = ['GET','POST']) # Home page shows recommendations
 def index():
 
-    # session.pop('username', None) # for debug purpose
-    # session.pop('itemToRate', None)
-    # session.pop('itemIdToRate', None)
-    # session.pop('ratingScore', None)
+    session.pop('username', None) # for debug purpose
+    session.pop('itemToRate', None)
+    session.pop('itemIdToRate', None)
+    session.pop('ratingScore', None)
     if request.method == 'POST':
         itemNameInput = request.form['itemName']  # get the form of searching itemName from index.html
         df_searched = searchItem(itemNameInput)
