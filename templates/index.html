@@ -61,7 +61,7 @@
       {% if user %}
 
       {% else %}
-          <div class="text-center">
+          <div class="text-center visible-lg ">
               <iframe width="850" height="450" src="https://www.youtube-nocookie.com/embed/KVXwYuf8kFk?rel=0&amp;controls=0&amp;showinfo=0&amp;start=38&amp;end=237&amp;autoplay=1&amp;mute=1&amp;" frameborder="0" >
               </iframe>
           </div>
@@ -105,10 +105,7 @@
       </p>
         <div>
             <form id="formSearch" action="" method="post">
-                <!-- this form MUST USE action="/rateItem" in order to let "/rateItem" to process, if not it will be processed in the "/"-->
                 <p><input type="text" name = "itemName" class="user-input"></p>
-                <!--<p><input type = "submit" value = "Sign up" class  = "text-black"></p>-->
-
                 <span class="button" >
                     <button type="submit" class="btn btn-success btn-lg  glyphicon glyphicon-search" ></button>
                 </span>
