@@ -26,3 +26,5 @@ gunicorn==19.7.1
 4. copy mk-100/DATA to RecommenderSystem/
     now all the original data is saved in /DATA directory
 
+# How to run:
+Python MainServer.py
