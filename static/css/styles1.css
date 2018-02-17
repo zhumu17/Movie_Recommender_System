@@ -173,6 +173,10 @@ h2{
 
 
 /* FOOTER */
+.text-small {
+  text-size: 5px;
+}
+
 .panel-footer {
   margin-top: 10px;
   padding-top: 20px;
@@ -270,7 +274,7 @@ h2{
 
 /* RATE PAGE */
 #rateMovie-page {
-  background-image: url('../images/wallpaper6.jpg');
+  background-image: url('../images/wallpaper7.jpg');
   background-size: cover;
 }
 

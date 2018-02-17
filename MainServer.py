@@ -106,8 +106,7 @@ def logout():
 
 
 # from wtforms import Form, validators
-# class SignupForm(Form):
-#     userId =
+
 
 @app.route('/signup', methods = ['GET','POST'])
 def signup():
@@ -134,9 +133,10 @@ def signup():
 def rateItem():
     itemToRate = session['itemToRate']
     if request.method == 'POST':
-        ratingScore = str(request.form['rating'])
+        ratingScore = int(request.form['rating'])
         session['ratingScore'] = ratingScore
-        return redirect(url_for('index'))  # redirect back to main page
+        # return redirect(url_for('index'))  # redirect back to main page
+        return redirect(url_for('thanksForRating'))
 
     return render_template('rateItem.html', itemToRate = itemToRate)
 
@@ -158,6 +158,12 @@ def rateItemNotFound():
     return render_template('rateItemNotFound.html')
 
 
+@app.route('/thanksForRating')
+def thanksForRating():
+    ratingScore = session['ratingScore']
+    return render_template('thanksForRating.html', ratingScore = ratingScore)
+
+
 @app.errorhandler(400)
 def value_error(error):
     return render_template('400.html')
@@ -172,4 +178,4 @@ def internal_server_error(error):
 
 #
 if __name__ == '__main__':
-    app.run(debug = False)
+    app.run(debug = True)
