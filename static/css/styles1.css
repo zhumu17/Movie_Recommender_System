@@ -4,7 +4,7 @@
 /** HEADER **/
 #header-nav {
   background-color: #000000; /* adjust */
-  opacity: .65;
+  opacity: .9;
   border-radius: 0;
   border: 0;
 }
@@ -58,6 +58,19 @@
 .navbar-header button.navbar-toggle {
   clear: both;
   margin-top: -30px;
+}
+
+.user-input-clip {
+    margin-left: 13px;
+    width: 350px;
+    margin-top: 18px;
+    color: #000000;
+    font-size: 20px;
+}
+
+.form-style {
+
+    display: inline-block;
 }
 /* END HEADER */
 
@@ -316,10 +329,16 @@ h2{
 */
 }
 
+
+
+
 .button-rate-it {
+    font-family: Arial;
+    font: Arial;
     border: none;
-    color: #000000;
+    color: blue;
     text-align: center;
+    margin-bottom: 80px;
 }
 
 .boxes {
@@ -388,12 +407,30 @@ h2{
 }
 
 
+/* ============================================================================ */
 
 
 
+.movie-image-menu {
+  position: relative;
+  border: 2px solid #3F0C1F;
+  overflow: hidden;
+  width: 200px;
+  height: 240px;
+  margin: 0 auto 25px;
+}
 
-
-
+.movie-image-menu span {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 1.0em;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #FFD700;
+}
 
 
 

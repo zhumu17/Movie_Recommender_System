@@ -6,8 +6,10 @@
 
 
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, json
+import numpy as np
 import DatabaseQueries
 from SearchInventory import searchItem
+import videoCrawler
 # from wtforms import validators
 
 app = Flask(__name__)
@@ -36,18 +38,25 @@ def index():
     # session.pop('itemToRate', None)
     # session.pop('itemIdToRate', None)
     # session.pop('ratingScore', None)
-    if request.method == 'POST':
-        itemNameInput = request.form['itemName']  # get the form of searching itemName from index.html
-        df_searched = searchItem(itemNameInput)
-        if len(df_searched) != 0:
-            itemIdToRate = df_searched.iloc[0,0]
-            df_searched = df_searched.reset_index()
-            itemToRate = df_searched.loc[0, 'itemName']
-            session['itemToRate'] = itemToRate
-            session['itemIdToRate'] = itemIdToRate
-            return redirect(url_for('rateItem'))
-        else:
-            return redirect(url_for('rateItemNotFound'))
+    # session.pop('clipURL', None)
+    if 'clipURL' in session:
+        clipURL = session['clipURL']
+    else:
+        clipURL = []
+    print(clipURL)
+
+    if request.method == 'POST' and request.form['submit'] == 'searchClip':
+        clipNameInput = request.form['clipName']
+        clipId = videoCrawler.getVideoId(clipNameInput)
+        clipURL = videoCrawler.getVideoURL(clipId)
+        session['clipURL'] = clipURL
+        return redirect(url_for('index'))
+
+
+
+    if request.method == 'POST' and request.form['submit']=='rateMenu':
+
+        return redirect(url_for('rateMenu'))
 
     if 'ratingScore' in session:
         itemIdToRate = session['itemIdToRate']
@@ -62,12 +71,12 @@ def index():
             session.pop('itemToRate', None)
             session.pop('itemIdToRate', None)
             session.pop('ratingScore', None)
-            return render_template('index.html', user=userId, itemsRecommended=itemsRecommended)
+            return render_template('index.html', user=userId, itemsRecommended=itemsRecommended, clipURL=clipURL)
         else:
             session.pop('itemToRate', None)
             session.pop('itemIdToRate', None)
             session.pop('ratingScore', None)
-            return render_template('index.html', itemsRecommended=itemsRecommended)
+            return render_template('index.html', itemsRecommended=itemsRecommended,clipURL=clipURL)
 
     else:
         if 'username' in session: # a registered user
@@ -76,15 +85,15 @@ def index():
 
             itemsRecommended = process.renderRecommendation(userId, numberToServe)
             itemsRecommended = itemsRecommended.iloc[:,-1].values.flatten()
-            return render_template('index.html', user = userId, itemsRecommended = itemsRecommended)
+            return render_template('index.html', user = userId, itemsRecommended = itemsRecommended, clipURL=clipURL)
         else:
             userId = -1 # -1 represent an unregistered user
             itemsRecommended = process.renderRecommendation(userId, numberToServe)  # output recommendations for unregistered user
             itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten() # flatten() converts 2D array into 1D, works as well as list()
 
-
-
-    return render_template('index.html', itemsRecommended=itemsRecommended)
+    if 'clipURL' in session:
+        session.pop('clipURL', None)
+    return render_template('index.html', itemsRecommended=itemsRecommended, clipURL=clipURL)
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
@@ -112,7 +121,7 @@ def logout():
 def signup():
     # form = SignupForm(request.form)
     numUsers = len(DatabaseQueries.getUserFeature())
-    if request.method == 'POST' : # add form validation later: and form.validate()
+    if request.method == 'POST' and request.form['submit'] == 'search': # add form validation later: and form.validate()
         # get new user from input
         userId = numUsers + 1 # new user Id is assigned
         age = request.form['age'] # get user's input from form with input name 'age'
@@ -127,6 +136,38 @@ def signup():
 
     return render_template('signup.html', numUsers = numUsers)
 
+
+@app.route('/rateMenu', methods=['GET', 'POST'])
+def rateMenu():
+    df_inventory = DatabaseQueries.getInventory()
+    itemsMenu= df_inventory.iloc[:, -1].values.flatten()
+    itemsMenu = list(itemsMenu) # list is to separate the array with comma
+    itemsMenu = np.random.choice(itemsMenu,16)
+    print(itemsMenu)
+    print(type(itemsMenu))
+
+    if request.method == 'POST' :
+        if request.form['submit'] == 'search':
+            itemNameInput = request.form['itemName']  # get the form of searching itemName from index.html
+        elif request.form['submit'] == 'select':
+            itemNameInput = request.form['itemSelect']
+
+        # print(itemNameInput)
+        df_searched = searchItem(itemNameInput)
+        # print(df_searched)
+        if len(df_searched) != 0:
+            itemIdToRate = df_searched.iloc[0,0]
+            df_searched = df_searched.reset_index()
+            itemToRate = df_searched.loc[0, 'itemName']
+            session['itemToRate'] = itemToRate
+            session['itemIdToRate'] = itemIdToRate
+            return redirect(url_for('rateItem'))
+        else:
+            return redirect(url_for('rateItemNotFound'))
+
+
+
+    return render_template('rateMenu.html', itemsMenu = itemsMenu)
 
 
 @app.route('/rateItem', methods=['GET','POST'])
@@ -178,4 +219,4 @@ def internal_server_error(error):
 
 
 if __name__ == '__main__':
-    app.run(debug = False)
+    app.run(debug = True)
