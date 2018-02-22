@@ -24,7 +24,7 @@
           </div>
             <form id="formSearchClip" action="" method="post" class="form-style">
                  <input type="text" name = "clipName" class="user-input-clip">
-                 <button type="submit" name="submit" value="searchClip" class="btn btn-success btn-sm" >Play Movie Clips</button>
+                 <button type="submit" name="submit" value="searchClip" class="btn btn-success btn-sm" >Play Movie Trailer</button>
              </form>
         </div>
 
@@ -61,77 +61,154 @@
 
 
   <div id="main-content" class="container">
-      {% if clipURL %}
-          <div class="text-center visible-md visible-lg ">
-              <iframe width="800" height="460" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="text-center visible-sm">
-              <iframe width="600" height="400" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
-          </div>
-          <div class="text-center visible-xs">
-              <iframe width="200" height="100" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
-          </div>
-
-      {% else %}
-          <div class="text-center visible-md visible-lg ">
-              <iframe width="800" height="460" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>
-          </div>
-          <div class="text-center visible-sm">
-              <!--<iframe width="850" height="450" src="https://www.youtube-nocookie.com/embed/KVXwYuf8kFk?rel=0&amp;controls=0&amp;showinfo=0&amp;start=38&amp;end=237&amp;autoplay=1&amp;mute=1&amp;" frameborder="0" >-->
-              <!--</iframe>-->
-              <iframe width="600" height="400" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>
-          </div>
-      {% endif %}
-      {% if user %}
-        <h2  class="text-center"> What's up user #{{ user }}! </h2>
-      {% else %}
-        <h2  class="text-center"> Welcome </h2>
-      {% endif %}
-
-    <div class="text-center">
-        {% if user %}
-            <p class ="text-center-section1"> Here are some movies recommended just for you: </p>
+<div class="white-boxes">
+    <div >
+        {% if ratingScore %}
+            {% if user %}
+                <p class ="text-left-section1"> HI USER #{{user}}, BASED ON YOUR RECENT RATING:
+            {% else %}
+                <p class ="text-left-section1"> BASED ON YOUR RECENT RATING:
+                </p>
+            {% endif %}
         {% else %}
-            <p class ="text-center-section1"> Below are some movies you might like:<br> Sign in to see more customized recommendations.<br>
-                Don't have an account? Just sign up.
-            </p>
+            {% if user %}
+                <p class ="text-left-section1"> HI USER #{{user}}, MOVIES RECOMMENDED FOR YOU BASED ON YOUR RATING HISTORY:
+            {% else %}
+                <p class ="text-left-section1"> MOST CLASSICAL MOVIES EVER:
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <section class="row">
+        {% for i in range(12) %}
+          <div class="col-md-2 col-sm-3 col-xs-12 ">
+              <form method="post">
+                <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended[i]}}"
+                       src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" >
+                  <a id = "aboutlink" href="#"></a>
+                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle"
+                            style=" margin-bottom: 10px;width: 170px; height:240px; background: url('../static/images/moviePosters/{{itemsRecommended[i]}}.jpg') no-repeat;
+                            background-size: cover; font-size: 2.5em; "></button>
+              </form>
+              <!--<div class="movie-image" >-->
+                  <!--<a href="https://www.youtube.com/results?search_query={{itemsRecommended[i]}}">-->
+                <!--<img width="200" height="250" src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" alt="image not found">-->
+                  <!--</a>-->
+              <!--</div>-->
+
+          </div>
+        {% endfor %}
+    </section>
+    <div >
+        {% if ratingScore %}
+            {% if user %}
+                <p class ="text-left-section1"> HI USER #{{user}}, MOVIES ARE RECOMMENDED BASED ON YOUR RECENT RATING:
+            {% else %}
+                <p class ="text-left-section1"> MOVIES ARE RECOMMENDED BASED ON YOUR RECENT RATING:
+                </p>
+            {% endif %}
+        {% else %}
+            {% if user %}
+                <p class ="text-left-section1"> HI USER #{{user}}, MOVIES RECOMMENDED FOR YOU BASED ON YOUR RATING HISTORY:
+            {% else %}
+                <p class ="text-left-section1"> MOST CLASSICAL MOVIES EVER:
+                </p>
+            {% endif %}
         {% endif %}
     </div>
     <section class="row">
         {% for i in range(12) %}
-          <div class="col-md-3 col-sm-4 col-xs-12">
-
-              <div class="movie-image-menu">
-                  <a href="https://www.youtube.com/results?search_query={{itemsRecommended[i]}}">
-                <img width="200" height="200" src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" alt="image not found">
-                <span> <p> {% print(itemsRecommended[i]) %} </p></span>
-                  </a>
-              </div>
-
+          <div class="col-md-2 col-sm-3 col-xs-12 ">
+              <form method="post">
+                <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended[i]}}"
+                       src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" >
+                  <a  href="#"></a>
+                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle"
+                            style=" margin-bottom: 20px;width: 170px; height:240px; background: url('../static/images/moviePosters/{{itemsRecommended[i]}}.jpg') no-repeat;
+                            background-size: cover; font-size: 2.5em; "></button>
+              </form>
           </div>
         {% endfor %}
+    </section>
 
+</div>
 
+    <section style="margin-top:100px;">
+          {% if clipURL %}
+              <div id="player" class="text-center visible-md visible-lg ">
+                  <script>function muteUnmute(){
+                    var myVideo =  iframe.getElementById('myVideo');
+                            myVideo.unMute();
+                    }
+                    muteUnmute()
+                  </script>
 
+                  <iframe id="myVideo" width="950" height="550" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
+                  <script>function muteUnmute(){
+                    var myVideo =  iframe.getElementById('myVideo');
+                            myVideo.unMute();
+                    }
+                    muteUnmute()
+                  </script>
+                  <script>var myVideo =  iframe.getElementById('myVideo');
+                            myVideo.unMute();</script>
+
+              </div>
+              <div class="text-center visible-sm">
+                  <iframe width="600" height="400" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
+              </div>
+              <div class="text-center visible-xs">
+                  <iframe width="200" height="100" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
+              </div>
+
+          {% else %}
+              <div class="text-center visible-md visible-lg ">
+                  <iframe width="950" height="550" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>
+              </div>
+              <div class="text-center visible-sm">
+                  <!--<iframe width="850" height="450" src="https://www.youtube-nocookie.com/embed/KVXwYuf8kFk?rel=0&amp;controls=0&amp;showinfo=0&amp;start=38&amp;end=237&amp;autoplay=1&amp;mute=1&amp;" frameborder="0" >-->
+                  <!--</iframe>-->
+                  <iframe width="700" height="450" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>
+              </div>
+          {% endif %}
+            <form method="post" >
+                <fieldset class="rating centered" >
+                    <!--<legend>Please rate:</legend>-->
+                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Awesome!">5 stars</label>
+                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Not bad">3 stars</label>
+                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Just so so">2 stars</label>
+                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="It sucks">1 star</label>
+                </fieldset>
+                <div class="button-rate-it">
+                     <button name="submit" type="submit" class="btn btn-success btn-lg" value="rateScore"> Rate This Movie</button>
+                </div>
+            </form>
     </section>
 
 
 
-    <section class="section1">
-        <h2  class="text-center">Want to rate a movie ?</h2>
-        <div class="text-center">
-            <p class="text-center-section1">Go ahead and see what's in our inventory</p>
 
+    <section class="section1">
+        <h2  class="text-center">Want To Watch The Whole Movie?</h2>
+        <div class="text-center">
+            <p class="text-center-section1" style="font-size:25px;">Let Us Find The Best Price Available Online For You</p>
             <div>
                 <form id="formRateMenu" action="" method="post">
+                     <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
                     <span class="button" >
-                        <button type="submit" name="submit" value="rateMenu" class="btn btn-success btn-lg" > Go To Rate A Movie</button>
+                        <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
                     </span>
                 </form>
 
             </div>
         </div>
     </section>
+
+    <!--<section class="section1">-->
+
+    <!--</section>-->
 
 
   </div><!-- End of #main-content -->
@@ -146,7 +223,7 @@
   <!-- jQuery (Bootstrap JS plugins depend on it) -->
 
   <!--<script src="js/jquery-2.1.4.min.js"></script>-->
-  <!--<script src="js/jquery-1.11.3.min.js"></script>-->
+  <script src="js/jquery-1.11.3.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/script.js"></script>
 </body>

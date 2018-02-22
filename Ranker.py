@@ -33,7 +33,7 @@ class Ranker(object):
         if "userBased" in recommendations:  # online exists as long as user has been active
             results.extend(recommendations["userBased"])  # should only has one
 
-        if "popular" in recommendations:  # most popular should always exist
+        if ("itemBased" not in recommendations) and ("collaborativeFiltering" not in recommendations) and ("userBased" not in recommendations):  # most popular should always exist
             # if there is no personalized recs, the remaining should be filled by most popular
             results.extend(recommendations["popular"][:numberToServe*2])
         else:
