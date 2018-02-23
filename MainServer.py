@@ -46,37 +46,38 @@ def index():
         userId = session['userId']
     else:
         userId = -1
-    print(userId)
+    print('userId in session:', userId)
     if 'itemToRate' in session:
         itemToRate = session['itemToRate']
     else:
         itemToRate = []
-    print(itemToRate)
-    if 'ratingScore' in session:
-        ratingScore = session['ratingScore']
-    else:
-        ratingScore = []
-    print(ratingScore)
+    print('itemToRate in session:',itemToRate)
     if 'clipURL' in session:
         clipURL = session['clipURL']
     else:
         clipURL = []
-    print(clipURL)
+    print('clipURL in session:', clipURL)
+    if 'ratingScore' in session:
+        ratingScore = session['ratingScore']
+    else:
+        ratingScore = []
+    print('ratingScore in session:', ratingScore)
+
     if 'itemToBuy' in session:
         itemToBuy = session['itemToBuy']
     else:
         itemToBuy = []
-    print(itemToBuy)
+    print('itemToBuy in session:', itemToBuy)
     if 'priceList' in session:
         priceList = session['priceList']
     else:
         priceList = []
-    print(priceList)
+    print('priceList in session:', priceList)
     if 'priceURLList' in session:
         priceURLList = session['priceURLList']
     else:
         priceURLList = []
-    print(priceURLList)
+    print('priceURLList in session', priceURLList)
 
 
 
@@ -145,21 +146,25 @@ def index():
         if 'username' in session:
             userId = session['username']
             DatabaseQueries.putNewRating(userId, itemIdToRate, ratingScore)
-            # session.pop('itemToRate', None)
-            # session.pop('itemIdToRate', None)
-            session.pop('ratingScore', None)
-            session.pop('clipURL', None)
-            session.pop('priceList', None)
-            session.pop('priceURLList', None)
+            if 'priceList' in session and 'priceURLList' in session: # have gone through the end of routine
+                session.pop('itemToRate', None)
+                session.pop('itemIdToRate', None)
+                session.pop('ratingScore', None)
+                session.pop('clipURL', None)
+                session.pop('priceList', None)
+                session.pop('priceURLList', None)
+
             return render_template('index.html', user=userId, itemsRecommended=itemsRecommended, clipURL=clipURL, itemToRate=itemToRate,
                                    ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
         else:
-            # session.pop('itemToRate', None)
-            # session.pop('itemIdToRate', None)
-            session.pop('ratingScore', None)
-            session.pop('clipURL', None)
-            session.pop('priceList', None)
-            session.pop('priceURLList', None)
+            if 'priceList' in session and 'priceURLList' in session:  # have gone through the end of routine
+                session.pop('itemToRate', None)
+                session.pop('itemIdToRate', None)
+                session.pop('ratingScore', None)
+                session.pop('clipURL', None)
+                session.pop('priceList', None)
+                session.pop('priceURLList', None)
+
             return render_template('index.html', itemsRecommended=itemsRecommended,clipURL=clipURL, itemToRate=itemToRate,
                                    ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
 

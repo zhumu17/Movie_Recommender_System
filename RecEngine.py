@@ -36,7 +36,6 @@ class RecEngine(object):
         # for registered users, based on new or old user provide recommendation
         userType = self.userAnalyzer.analyze(userId, self.numRatingsPerUser)
         self.log.info("user type: %s" % userType)
-        print(ratingScore)
         if ratingScore == None: # no item is rated
             if userType == "new":
                 # for new user, use KNN model based on similar users
@@ -51,10 +50,10 @@ class RecEngine(object):
         else:
 
             # if get a rated one item, provide recommendation of similar item if rated score is high, otherwise pass
-            if ratingScore >= 3:
+            if ratingScore >= 4:
                 model = self.modelStore.getModel(ModelStore.CL_MODEL_KEY)
                 recommendations["itemBased"] = model.recommend(itemId)
                 self.log.info("Recommending using KMeans algorithm")
 
-        print(recommendations.keys())
+        # print(recommendations.keys())
         return recommendations

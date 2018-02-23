@@ -179,9 +179,12 @@
                                       <img width="120" height="120" src="../static/images/LogoITunes.jpg" alt="image not found">
                                 </div>
                             </div>
+                            <span class="button" >
+                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
+                            </span>
 
-
-                            {% if priceList and priceURLList%}
+                        </form>
+                         {% if priceList and priceURLList%}
                             <div class="row" style="margin-bottom:50px;">
                                 <div class="col-lg-4 co-md-4">
                                     <a href="{{priceURLList[0]}}">
@@ -194,12 +197,8 @@
                                     </a>
                                 </div>
                             </div>
-                            {% else %}
-                                <span class="button" >
-                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
-                                </span>
-                            {% endif %}
-                        </form>
+
+                        {% endif %}
 
                     </div>
 

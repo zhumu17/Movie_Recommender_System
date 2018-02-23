@@ -39,7 +39,7 @@ class Process(object):
         # for the purpose of testing, we sort the index, output item names
         # output is the detail content of item, not just item id, but sorted (ranked) by the id value
         # print(recommendations)
-        print(rankings)
+        # print(rankings)
         inventory = DatabaseQueries.getInventory()
         inventory.index = inventory.index + 1
         return inventory.loc[rankings,:]
