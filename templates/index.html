@@ -104,7 +104,7 @@
 
 
     <section style="margin-bottom:100px;" id="trailerPlayer" >
-        <br><br><br>
+        <br><br>
           {% if clipURL %}
               <div id="player" class="text-center visible-md visible-lg ">
                   <iframe id="myVideo" width="950" height="550" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
@@ -126,7 +126,9 @@
                         <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="It sucks">1 star</label>
                     </fieldset>
                     <p class="text-center" style="color: gold; margin-top:-30px;">
-                        If you love this trailer and submit your rating, we will help you find the full movie CHEAPEST available online :)</p>
+                        If you love it and submitted rating <br>
+                        We can help you find the HD Full Movie with best price online :)
+                    </p>
                     <div class="button-rate-it">
                          <button name="submit" type="submit" class="btn btn-success btn-lg" value="rateScore"> Submit Rating</button>
 
@@ -166,7 +168,7 @@
                         <form id="formRateMenu" action="" method="post">
                              <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
                             <span class="button" >
-                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
+                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND PRICES</button>
                             </span>
                             <div class="row">
 
