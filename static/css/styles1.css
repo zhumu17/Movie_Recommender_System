@@ -25,6 +25,7 @@
   color: white; /* adjust */
   opacity: 1;
   font-size: 1.7em;
+  font-family:  Cursive;
   text-shadow: 1px 1px 1px #222;
   margin-top: 0;
   margin-bottom: 0;
@@ -101,17 +102,14 @@ h2{
 }
 
 /* START FIRST SECTION */
-.section1 {
-    margin-top:200px;
-    margin-bottom: 250px;
-}
 
 
-.text-center-section1 {
+
+.text-center-purchaseMovie {
     color: #FFD700;
-    margin: 40px;
-    margin-bottom: 80px;
-    font-size: 20px;
+    margin: 30px;
+    margin-bottom: 30px;
+    font-size: 25px;
 }
 
 .movie-image {
@@ -143,7 +141,7 @@ h2{
   opacity: .5;
 }
 
-.text-left-section1 {
+.text-left{
     color: #FFD700;
     margin-top: 20px;
     margin-left: 0px;
@@ -202,16 +200,17 @@ span.glyphicon-link {
 
 /* FOOTER */
 .text-small {
-  text-size: 5px;
+  font-size: 12px;
+  color: grey;
 }
 
 .panel-footer {
   margin-top: 10px;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background-color: #000000;
   border-top: 0;
-  opacity: .8;
+  opacity: .9;
 }
 .panel-footer div.row {
   margin-bottom: 35px;
@@ -257,8 +256,12 @@ span.glyphicon-link {
 .white-boxes {
   background-color: #000000;
   padding: 2%;
+  padding-top: 1%;
+  padding-bottom: 1%;
   opacity: 1;
 }
+
+
 
 .text-center-signup {
     color: white;
@@ -354,7 +357,7 @@ span.glyphicon-link {
     border: none;
     color: blue;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 200px;
 }
 
 .boxes {
@@ -373,11 +376,12 @@ span.glyphicon-link {
 /* :not(:checked) is a filter, so that browsers that don’t support :checked don’t
    follow these rules. Every browser that supports :checked also supports :not(), so
    it doesn’t make the test unnecessarily selective */
-.rating:not(:checked) > input {
+
+/*.rating:not(:checked) > input {
     position:absolute;
     top:-9999px;
     clip:rect(0,0,0,0);
-}
+}*/
 
 .rating:not(:checked) > label {
     float:right;
@@ -416,11 +420,11 @@ span.glyphicon-link {
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
 }
 
-.rating > label:active {
+/*.rating > label:active {
     position:relative;
     top:2px;
     left:2px;
-}
+}*/
 
 
 /* ============================================================================ */

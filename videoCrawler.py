@@ -34,5 +34,5 @@ def getVideoId(itemName):
     return videoId
 
 def getVideoURL(videoId):
-    videoURL = "https://www.youtube.com/embed/" + videoId + "?rel=0&amp;showinfo=0&amp;autoplay=1&amp;mute=1&amp;volume=20;"
+    videoURL = "https://www.youtube.com/embed/" + videoId + "?rel=0&amp;showinfo=0&amp;"
     return videoURL

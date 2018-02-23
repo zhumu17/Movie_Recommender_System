@@ -39,6 +39,8 @@ def index():
     # session.pop('itemIdToRate', None)
     # session.pop('ratingScore', None)
     # session.pop('clipURL', None)
+    # session.pop('priceList', None)
+    # session.pop('priceURLList', None)
 
     if 'userId' in session:
         userId = session['userId']
@@ -65,6 +67,18 @@ def index():
     else:
         itemToBuy = []
     print(itemToBuy)
+    if 'priceList' in session:
+        priceList = session['priceList']
+    else:
+        priceList = []
+    print(priceList)
+    if 'priceURLList' in session:
+        priceURLList = session['priceURLList']
+    else:
+        priceURLList = []
+    print(priceURLList)
+
+
 
     itemsRecommended = process.renderRecommendation(userId,numberToServe)  # output recommendations for unregistered user
     itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten()
@@ -75,7 +89,7 @@ def index():
         clipId = videoCrawler.getVideoId(clipNameInput)
         clipURL = videoCrawler.getVideoURL(clipId)
         session['clipURL'] = clipURL
-        return redirect(url_for('index'))
+        return redirect(url_for('index', _anchor='trailerPlayer'))
 
     if request.method =='POST' and request.form['submit'] == 'selectClip':
         clipNameInput = request.form['clipName']
@@ -83,15 +97,13 @@ def index():
         clipURL = videoCrawler.getVideoURL(clipId)
         session['clipURL'] = clipURL
         session['itemToRate'] = clipNameInput
-        # return redirect(url_for('index'))  # redirect or render_template???
-        return render_template('index.html', itemsRecommended=itemsRecommended, clipURL=clipURL, itemToRate=itemToRate,
-                           ratingScore=ratingScore)
+        return redirect(url_for('index', _anchor='trailerPlayer'))
+
 
     if request.method == 'POST' and request.form['submit']=='rateScore':
         itemToRate = session['itemToRate']
         ratingScore = int(request.form['rating'])
         session['ratingScore'] = ratingScore
-        # return redirect(url_for('index'))  # redirect back to main page
         df_searched = searchItem(itemToRate)
         # print(df_searched)
         if len(df_searched) != 0:
@@ -100,14 +112,21 @@ def index():
             itemToRate = df_searched.loc[0, 'itemName']
             session['itemToRate'] = itemToRate
             session['itemIdToRate'] = itemIdToRate
-        return redirect(url_for('index'))
+        if ratingScore >= 4:
+            return redirect(url_for('index', _anchor='purchaseMovie'))
+        else:
+            return redirect(url_for('index'))
 
     if request.method == 'POST' and request.form['submit']=='findPrice':
         itemToBuy = request.form['itemToBuy']
         session['itemToBuy'] = itemToBuy
         priceAmazon = priceCrawler.getPriceAmazon(itemToBuy)
-        session['priceList'] = [priceAmazon]
-        return redirect(url_for('index'))
+        priceURLAmazon = priceCrawler.getURLAmazon(itemToBuy)
+        priceYouTube = priceCrawler.getPriceYouTube(itemToBuy)
+        priceURLYouTube = priceCrawler.getURLYouTube(itemToBuy)
+        session['priceList'] = [priceAmazon, priceYouTube]
+        session['priceURLList']=[priceURLAmazon, priceURLYouTube]
+        return redirect(url_for('index',_anchor='purchaseMovie'))
 
 
 
@@ -128,13 +147,21 @@ def index():
             DatabaseQueries.putNewRating(userId, itemIdToRate, ratingScore)
             # session.pop('itemToRate', None)
             # session.pop('itemIdToRate', None)
-            # session.pop('ratingScore', None)
-            return render_template('index.html', user=userId, itemsRecommended=itemsRecommended, clipURL=clipURL, itemToRate=itemToRate, ratingScore=ratingScore)
+            session.pop('ratingScore', None)
+            session.pop('clipURL', None)
+            session.pop('priceList', None)
+            session.pop('priceURLList', None)
+            return render_template('index.html', user=userId, itemsRecommended=itemsRecommended, clipURL=clipURL, itemToRate=itemToRate,
+                                   ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
         else:
             # session.pop('itemToRate', None)
             # session.pop('itemIdToRate', None)
-            # session.pop('ratingScore', None)
-            return render_template('index.html', itemsRecommended=itemsRecommended,clipURL=clipURL, itemToRate=itemToRate, ratingScore=ratingScore)
+            session.pop('ratingScore', None)
+            session.pop('clipURL', None)
+            session.pop('priceList', None)
+            session.pop('priceURLList', None)
+            return render_template('index.html', itemsRecommended=itemsRecommended,clipURL=clipURL, itemToRate=itemToRate,
+                                   ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
 
     else:
         if 'username' in session: # a registered user
@@ -149,11 +176,16 @@ def index():
             itemsRecommended = process.renderRecommendation(userId, numberToServe)  # output recommendations for unregistered user
             itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten() # flatten() converts 2D array into 1D, works as well as list()
 
-    if 'clipURL' in session:
-        session.pop('clipURL', None)
-    if 'ratingScore' in session:
-        session.pop('ratingscore', None)
+    #
+    # if 'clipURL' in session:
+    #     session.pop('clipURL', None)
+    # if 'ratingScore' in session:
+    #     session.pop('ratingscore', None)
+
     return render_template('index.html', itemsRecommended=itemsRecommended, clipURL=clipURL)
+
+
+
 
 @app.route('/login', methods = ['GET','POST'])
 def login():

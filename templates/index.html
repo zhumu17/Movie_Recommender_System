@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <script src="js/script.js"></script>
-    <title>Recommender</title>
+    <title>MovieUniverse</title>
 
       <link rel="stylesheet" href="../static/css/bootstrap.min.css">
       <link rel="stylesheet" href="../static/css/styles1.css">
@@ -20,11 +20,11 @@
                 <div id="logo-img"></div>
             </a>
           <div class="navbar-brand">
-            <a href="/"><h1>Movie Recommender</h1></a>
+            <a href="/"><h1>MovieUniverse</h1></a>
           </div>
             <form id="formSearchClip" action="" method="post" class="form-style">
-                 <input type="text" name = "clipName" class="user-input-clip">
-                 <button type="submit" name="submit" value="searchClip" class="btn btn-success btn-sm" >Play Movie Trailer</button>
+                 <input type="text" name = "clipName" class="user-input-clip" >
+                 <button type="submit" name="submit" value="searchClip" class="btn btn-success btn-sm" >Search Trailer</button>
              </form>
         </div>
 
@@ -65,22 +65,22 @@
     <div >
         {% if ratingScore %}
             {% if user %}
-                <p class ="text-left-section1"> HI USER #{{user}}, BASED ON YOUR RECENT RATING:
+                <p class ="text-left"> HI USER #{{user}}, BASED ON YOUR RECENT RATING:
             {% else %}
-                <p class ="text-left-section1"> BASED ON YOUR RECENT RATING:
+                <p class ="text-left"> BASED ON YOUR RECENT RATING:
                 </p>
             {% endif %}
         {% else %}
             {% if user %}
-                <p class ="text-left-section1"> HI USER #{{user}}, MOVIES RECOMMENDED FOR YOU BASED ON YOUR RATING HISTORY:
+                <p class ="text-left"> HI USER #{{user}}, MOVIES RECOMMENDED FOR YOU BASED ON YOUR RATING HISTORY:
             {% else %}
-                <p class ="text-left-section1"> MOST CLASSICAL MOVIES EVER:
+                <p class ="text-left"> MOST CLASSICAL MOVIES EVER:
                 </p>
             {% endif %}
         {% endif %}
     </div>
 
-    <section class="row">
+    <section class="row" >
         {% for i in range(12) %}
           <div class="col-md-2 col-sm-3 col-xs-12 ">
               <form method="post">
@@ -88,8 +88,8 @@
                        src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" >
                   <a id = "aboutlink" href="#"></a>
                     <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle"
-                            style=" margin-bottom: 10px;width: 170px; height:240px; background: url('../static/images/moviePosters/{{itemsRecommended[i]}}.jpg') no-repeat;
-                            background-size: cover; font-size: 2.5em; "></button>
+                            style=" margin-bottom: 10px;width: 175px; height:240px; background: url('../static/images/moviePosters/{{itemsRecommended[i]}}.jpg') no-repeat;
+                            background-size: cover; font-size: 3em; "></button>
               </form>
               <!--<div class="movie-image" >-->
                   <!--<a href="https://www.youtube.com/results?search_query={{itemsRecommended[i]}}">-->
@@ -100,59 +100,14 @@
           </div>
         {% endfor %}
     </section>
-    <div >
-        {% if ratingScore %}
-            {% if user %}
-                <p class ="text-left-section1"> HI USER #{{user}}, MOVIES ARE RECOMMENDED BASED ON YOUR RECENT RATING:
-            {% else %}
-                <p class ="text-left-section1"> MOVIES ARE RECOMMENDED BASED ON YOUR RECENT RATING:
-                </p>
-            {% endif %}
-        {% else %}
-            {% if user %}
-                <p class ="text-left-section1"> HI USER #{{user}}, MOVIES RECOMMENDED FOR YOU BASED ON YOUR RATING HISTORY:
-            {% else %}
-                <p class ="text-left-section1"> MOST CLASSICAL MOVIES EVER:
-                </p>
-            {% endif %}
-        {% endif %}
-    </div>
-    <section class="row">
-        {% for i in range(12) %}
-          <div class="col-md-2 col-sm-3 col-xs-12 ">
-              <form method="post">
-                <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended[i]}}"
-                       src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" >
-                  <a  href="#"></a>
-                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle"
-                            style=" margin-bottom: 20px;width: 170px; height:240px; background: url('../static/images/moviePosters/{{itemsRecommended[i]}}.jpg') no-repeat;
-                            background-size: cover; font-size: 2.5em; "></button>
-              </form>
-          </div>
-        {% endfor %}
-    </section>
 
-</div>
 
-    <section style="margin-top:100px;">
+
+    <section style="margin-bottom:100px;" id="trailerPlayer" >
+        <br><br><br>
           {% if clipURL %}
               <div id="player" class="text-center visible-md visible-lg ">
-                  <script>function muteUnmute(){
-                    var myVideo =  iframe.getElementById('myVideo');
-                            myVideo.unMute();
-                    }
-                    muteUnmute()
-                  </script>
-
                   <iframe id="myVideo" width="950" height="550" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
-                  <script>function muteUnmute(){
-                    var myVideo =  iframe.getElementById('myVideo');
-                            myVideo.unMute();
-                    }
-                    muteUnmute()
-                  </script>
-                  <script>var myVideo =  iframe.getElementById('myVideo');
-                            myVideo.unMute();</script>
 
               </div>
               <div class="text-center visible-sm">
@@ -161,6 +116,20 @@
               <div class="text-center visible-xs">
                   <iframe width="200" height="100" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
               </div>
+
+                <form method="post" >
+                    <fieldset class="rating centered" >
+                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Awesome!">5 stars</label>
+                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
+                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Not bad">3 stars</label>
+                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Just so so">2 stars</label>
+                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="It sucks">1 star</label>
+                    </fieldset>
+                    <div class="button-rate-it">
+                         <button name="submit" type="submit" class="btn btn-success btn-lg" value="rateScore"> Rate This Movie</button>
+                    </div>
+                </form>
+
 
           {% else %}
               <div class="text-center visible-md visible-lg ">
@@ -171,52 +140,85 @@
                   <!--</iframe>-->
                   <iframe width="700" height="450" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>
               </div>
+
+               <div class="button-rate-it" >
+                   <a href="/">
+                       <button class="btn btn-success btn-lg" > Select Or Search A Trailer From Above</button>
+                   </a>
+
+               </div>
           {% endif %}
-            <form method="post" >
-                <fieldset class="rating centered" >
-                    <!--<legend>Please rate:</legend>-->
-                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Awesome!">5 stars</label>
-                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Not bad">3 stars</label>
-                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Just so so">2 stars</label>
-                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="It sucks">1 star</label>
-                </fieldset>
-                <div class="button-rate-it">
-                     <button name="submit" type="submit" class="btn btn-success btn-lg" value="rateScore"> Rate This Movie</button>
+
+    </section>
+
+
+{% if ratingScore %}
+    {% if ratingScore >=4 %}
+            <section  id="purchaseMovie" style="margin-bottom:200px;">
+                <h2  class="text-center">Watch Full Movie?</h2>
+                <div class="text-center">
+                    <p class="text-center-purchaseMovie">Let Us Find The Best Price Available Online For You</p>
+                    <div>
+                        <form id="formRateMenu" action="" method="post">
+                             <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
+                            <div class="row" style="margin-bottom:20px;">
+
+                                <div class="col-lg-4 co-md-4">
+                                      <img width="200" height="200" src="../static/images/LogoAmazon.jpg" alt="image not found">
+                                </div>
+
+
+                                <div class="col-lg-4 co-md-4" >
+                                    <br>
+                                     <img width="200" height="120" src="../static/images/LogoYouTube.jpg" alt="image not found">
+                                </div>
+
+
+                                <div class="col-lg-4 co-md-4" >
+                                    <br>
+                                      <img width="120" height="120" src="../static/images/LogoITunes.jpg" alt="image not found">
+                                </div>
+                            </div>
+
+
+                            {% if priceList and priceURLList%}
+                            <div class="row" style="margin-bottom:50px;">
+                                <div class="col-lg-4 co-md-4">
+                                    <a href="{{priceURLList[0]}}">
+                                           <button type="submit" name="submit" class="btn btn-success btn-lg" > ${{priceList[0]}}</button>
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 co-md-4">
+                                    <a href="{{priceURLList[1]}}">
+                                           <button type="submit" name="submit" class="btn btn-success btn-lg" > ${{priceList[1]}}</button>
+                                    </a>
+                                </div>
+                            </div>
+                            {% else %}
+                                <span class="button" >
+                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
+                                </span>
+                            {% endif %}
+                        </form>
+
+                    </div>
+
                 </div>
-            </form>
-    </section>
+
+            </section>
+
+    {% endif %}
+ {% endif %}
 
 
-
-
-    <section class="section1">
-        <h2  class="text-center">Want To Watch The Whole Movie?</h2>
-        <div class="text-center">
-            <p class="text-center-section1" style="font-size:25px;">Let Us Find The Best Price Available Online For You</p>
-            <div>
-                <form id="formRateMenu" action="" method="post">
-                     <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
-                    <span class="button" >
-                        <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
-                    </span>
-                </form>
-
-            </div>
-        </div>
-    </section>
-
-    <!--<section class="section1">-->
-
-    <!--</section>-->
-
+</div> <!-- End of .white-box -->
 
   </div><!-- End of #main-content -->
 
 
   <footer class="panel-footer">
     <div class="container">
-      <div class="text-center small-text">Developed by: Mu Zhu (zhumu17@gmail.com) <br> Dataset provided by: grouplens.org  <br> Copyright reserved &copy; 2018</div>
+      <div class="text-center text-small">Developed by: Mu Zhu (zhumu17@gmail.com) <br> Dataset provided by: grouplens.org  <br> Copyright reserved &copy; 2018</div>
     </div>
   </footer>
 
