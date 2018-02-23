@@ -60,8 +60,8 @@
 
 
 
-  <div id="main-content" class="container">
-<div class="white-boxes">
+  <div id="main-content" class="container" >
+<div class="white-boxes" id="movieGallery">
     <div >
         {% if ratingScore %}
             {% if user %}
@@ -80,7 +80,7 @@
         {% endif %}
     </div>
 
-    <section class="row" >
+    <section class="row"  >
         {% for i in range(12) %}
           <div class="col-md-2 col-sm-3 col-xs-12 ">
               <form method="post">
@@ -125,9 +125,13 @@
                         <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Just so so">2 stars</label>
                         <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="It sucks">1 star</label>
                     </fieldset>
+                    <p class="text-center" style="color: gold; margin-top:-30px;">
+                        If you love this trailer and submit your rating, we will help you find the full movie CHEAPEST available online :)</p>
                     <div class="button-rate-it">
-                         <button name="submit" type="submit" class="btn btn-success btn-lg" value="rateScore"> Rate This Movie</button>
+                         <button name="submit" type="submit" class="btn btn-success btn-lg" value="rateScore"> Submit Rating</button>
+
                     </div>
+
                 </form>
 
 
@@ -155,13 +159,16 @@
 {% if ratingScore %}
     {% if ratingScore >=4 %}
             <section  id="purchaseMovie" style="margin-bottom:200px;">
-                <h2  class="text-center">Watch Full Movie?</h2>
+                <h2  class="text-center">Want To Watch Full Movie?</h2>
                 <div class="text-center">
                     <p class="text-center-purchaseMovie">Let Us Find The Best Price Available Online For You</p>
                     <div>
                         <form id="formRateMenu" action="" method="post">
                              <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
-                            <div class="row" style="margin-bottom:20px;">
+                            <span class="button" >
+                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
+                            </span>
+                            <div class="row">
 
                                 <div class="col-lg-4 co-md-4">
                                       <img width="200" height="200" src="../static/images/LogoAmazon.jpg" alt="image not found">
@@ -179,21 +186,19 @@
                                       <img width="120" height="120" src="../static/images/LogoITunes.jpg" alt="image not found">
                                 </div>
                             </div>
-                            <span class="button" >
-                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND BEST PRICE</button>
-                            </span>
+
 
                         </form>
                          {% if priceList and priceURLList%}
                             <div class="row" style="margin-bottom:50px;">
                                 <div class="col-lg-4 co-md-4">
-                                    <a href="{{priceURLList[0]}}">
-                                           <button type="submit" name="submit" class="btn btn-success btn-lg" > ${{priceList[0]}}</button>
+                                    <a href="{{priceURLList[0]}}" target="_blank">
+                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > WATCH FROM ${{priceList[0]}}</button>
                                     </a>
                                 </div>
                                 <div class="col-lg-4 co-md-4">
-                                    <a href="{{priceURLList[1]}}">
-                                           <button type="submit" name="submit" class="btn btn-success btn-lg" > ${{priceList[1]}}</button>
+                                    <a href="{{priceURLList[1]}}" target="_blank">
+                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > WATCH FROM ${{priceList[1]}}</button>
                                     </a>
                                 </div>
                             </div>

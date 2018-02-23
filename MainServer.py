@@ -33,15 +33,15 @@ process.start() # initialize all the modules/classes, load all the data in the d
 
 @app.route('/', methods = ['GET','POST']) # Home page shows recommendations
 def index():
-
     # session.pop('username', None) # for debug purpose
     # session.pop('itemToRate', None)
-    # session.pop('itemIdToRate', None)
-    # session.pop('ratingScore', None)
+    # session.pop('itemIdRated', None)
     # session.pop('clipURL', None)
+    # session.pop('ratingScore', None)
+    # session.pop('itemToBuy', None)
     # session.pop('priceList', None)
     # session.pop('priceURLList', None)
-
+    print(request.method)
     if 'userId' in session:
         userId = session['userId']
     else:
@@ -62,7 +62,11 @@ def index():
     else:
         ratingScore = []
     print('ratingScore in session:', ratingScore)
-
+    if 'itemIdRated' in session:
+        itemIdRated = session['itemIdRated']
+    else:
+        itemIdRated = []
+    print('itemIdRated in session:',itemIdRated)
     if 'itemToBuy' in session:
         itemToBuy = session['itemToBuy']
     else:
@@ -80,11 +84,14 @@ def index():
     print('priceURLList in session', priceURLList)
 
 
-
     itemsRecommended = process.renderRecommendation(userId,numberToServe)  # output recommendations for unregistered user
     itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten()
+    print(request.method)
 
 
+    ############################
+    #   REQUEST POST METHOD    #
+    ############################
     if request.method == 'POST' and request.form['submit'] == 'searchClip':
         clipNameInput = request.form['clipName']
         clipId = videoCrawler.getVideoId(clipNameInput)
@@ -100,74 +107,71 @@ def index():
         session['itemToRate'] = clipNameInput
         return redirect(url_for('index', _anchor='trailerPlayer'))
 
-
     if request.method == 'POST' and request.form['submit']=='rateScore':
+
         itemToRate = session['itemToRate']
         ratingScore = int(request.form['rating'])
         session['ratingScore'] = ratingScore
         df_searched = searchItem(itemToRate)
-        # print(df_searched)
+        print(df_searched)
         if len(df_searched) != 0:
-            itemIdToRate = df_searched.iloc[0, 0]
-            df_searched = df_searched.reset_index()
-            itemToRate = df_searched.loc[0, 'itemName']
-            session['itemToRate'] = itemToRate
-            session['itemIdToRate'] = itemIdToRate
+            itemIdRated = df_searched.iloc[0, 0]
+            session['itemIdRated'] = int(itemIdRated) # dataframe.iloc returns a numpy array, even just one element, must convert to int!
         if ratingScore >= 4:
             return redirect(url_for('index', _anchor='purchaseMovie'))
         else:
-            return redirect(url_for('index'))
+            return redirect(url_for('index', _anchor='header-nav'))
 
     if request.method == 'POST' and request.form['submit']=='findPrice':
         itemToBuy = request.form['itemToBuy']
-        session['itemToBuy'] = itemToBuy
-        priceAmazon = priceCrawler.getPriceAmazon(itemToBuy)
-        priceURLAmazon = priceCrawler.getURLAmazon(itemToBuy)
+        priceAmazon = 1#priceCrawler.getPriceAmazon(itemToBuy)
+        priceURLAmazon = 1#priceCrawler.getURLAmazon(itemToBuy)
         priceYouTube = priceCrawler.getPriceYouTube(itemToBuy)
         priceURLYouTube = priceCrawler.getURLYouTube(itemToBuy)
+        session['itemToBuy'] = itemToBuy
         session['priceList'] = [priceAmazon, priceYouTube]
         session['priceURLList']=[priceURLAmazon, priceURLYouTube]
         return redirect(url_for('index',_anchor='purchaseMovie'))
 
 
-
-
-
-
-
-
+    ############################
+    #   REQUEST GET METHOD     #
+    ############################
+    #  if there is a movie rated
     if 'ratingScore' in session:
-        itemIdToRate = session['itemIdToRate']
+        itemIdRated = session['itemIdRated']
         ratingScore = session['ratingScore']
         ratingScore = int(ratingScore) # it was a string type by default
-        itemsRecommended = process.renderRecommendation(numberToServe=numberToServe, itemId=itemIdToRate, ratingScore=ratingScore)
+        itemsRecommended = process.renderRecommendation(numberToServe=numberToServe, itemId=itemIdRated, ratingScore=ratingScore)
         itemsRecommended = list(itemsRecommended.iloc[:, -1].values)
         # no matter user is registered or not, once item rated, recommend similar item
-        if 'username' in session:
+        if 'username' in session: # user signed in
             userId = session['username']
-            DatabaseQueries.putNewRating(userId, itemIdToRate, ratingScore)
-            if 'priceList' in session and 'priceURLList' in session: # have gone through the end of routine
-                session.pop('itemToRate', None)
-                session.pop('itemIdToRate', None)
-                session.pop('ratingScore', None)
+            DatabaseQueries.putNewRating(userId, itemIdRated, ratingScore)
+            if 'priceList' in session and 'priceURLList' in session: # user have gone through the end of routine
+                # session.pop('itemToRate', None)
                 session.pop('clipURL', None)
+                session.pop('ratingScore', None)
+                session.pop('itemIdRated', None)
+                session.pop('itemToBuy', None)
                 session.pop('priceList', None)
                 session.pop('priceURLList', None)
-
             return render_template('index.html', user=userId, itemsRecommended=itemsRecommended, clipURL=clipURL, itemToRate=itemToRate,
                                    ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
-        else:
-            if 'priceList' in session and 'priceURLList' in session:  # have gone through the end of routine
-                session.pop('itemToRate', None)
-                session.pop('itemIdToRate', None)
-                session.pop('ratingScore', None)
+        else: # user not signed in
+            if 'priceList' in session and 'priceURLList' in session:  # user have gone through the end of routine
+                # session.pop('itemToRate', None)
                 session.pop('clipURL', None)
+                session.pop('ratingScore', None)
+                session.pop('itemIdRated', None)
+                session.pop('itemToBuy', None)
                 session.pop('priceList', None)
                 session.pop('priceURLList', None)
 
             return render_template('index.html', itemsRecommended=itemsRecommended,clipURL=clipURL, itemToRate=itemToRate,
                                    ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
 
+    # if NO movie was rated
     else:
         if 'username' in session: # a registered user
             userId = session['username'] # get userId from cookie
@@ -181,11 +185,6 @@ def index():
             itemsRecommended = process.renderRecommendation(userId, numberToServe)  # output recommendations for unregistered user
             itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten() # flatten() converts 2D array into 1D, works as well as list()
 
-    #
-    # if 'clipURL' in session:
-    #     session.pop('clipURL', None)
-    # if 'ratingScore' in session:
-    #     session.pop('ratingscore', None)
 
     return render_template('index.html', itemsRecommended=itemsRecommended, clipURL=clipURL)
 
@@ -253,11 +252,11 @@ def rateMenu():
         df_searched = searchItem(itemNameInput)
         # print(df_searched)
         if len(df_searched) != 0:
-            itemIdToRate = df_searched.iloc[0,0]
+            itemIdRated = df_searched.iloc[0,0]
             df_searched = df_searched.reset_index()
             itemToRate = df_searched.loc[0, 'itemName']
             session['itemToRate'] = itemToRate
-            session['itemIdToRate'] = itemIdToRate
+            session['itemIdRated'] = itemIdRated
             return redirect(url_for('rateItem'))
         else:
             return redirect(url_for('rateItemNotFound'))
@@ -285,11 +284,11 @@ def rateItemNotFound():
         itemNameInput = request.form['itemName']  # get the form of searching itemName from index.html
         df_searched = searchItem(itemNameInput)
         if len(df_searched) != 0:
-            itemIdToRate = df_searched.iloc[0,0]
+            itemIdRated = df_searched.iloc[0,0]
             df_searched = df_searched.reset_index()
             itemToRate = df_searched.loc[0, 'itemName']
             session['itemToRate'] = itemToRate
-            session['itemIdToRate'] = itemIdToRate
+            session['itemIdRated'] = itemIdRated
             return redirect(url_for('rateItem'))
         else:
             return redirect(url_for('rateItemNotFound'))

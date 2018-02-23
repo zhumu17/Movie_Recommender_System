@@ -67,7 +67,7 @@ def getPriceYouTube(itemName):
 
 def getURLYouTube(itemName):
     query = itemName
-    url = "https://www.youtube.com/results?search_query=" + query + "full movie"
+    url = "https://www.youtube.com/results?search_query=" + query + " full movie"
     return url
 
 
