@@ -96,15 +96,18 @@ def index():
         clipNameInput = request.form['clipName']
         clipId = videoCrawler.getVideoId(clipNameInput)
         clipURL = videoCrawler.getVideoURL(clipId)
+        session['itemToRate'] = clipNameInput
         session['clipURL'] = clipURL
+        session.pop('ratingScore', None)
         return redirect(url_for('index', _anchor='trailerPlayer'))
 
     if request.method =='POST' and request.form['submit'] == 'selectClip':
         clipNameInput = request.form['clipName']
         clipId = videoCrawler.getVideoId(clipNameInput)
         clipURL = videoCrawler.getVideoURL(clipId)
-        session['clipURL'] = clipURL
         session['itemToRate'] = clipNameInput
+        session['clipURL'] = clipURL
+        session.pop('ratingScore', None)
         return redirect(url_for('index', _anchor='trailerPlayer'))
 
     if request.method == 'POST' and request.form['submit']=='rateScore':
@@ -114,23 +117,34 @@ def index():
         session['ratingScore'] = ratingScore
         df_searched = searchItem(itemToRate)
         print(df_searched)
+        print(len(df_searched))
+        print("--------------")
         if len(df_searched) != 0:
             itemIdRated = df_searched.iloc[0, 0]
             session['itemIdRated'] = int(itemIdRated) # dataframe.iloc returns a numpy array, even just one element, must convert to int!
-        if ratingScore >= 4:
-            return redirect(url_for('index', _anchor='purchaseMovie'))
         else:
-            return redirect(url_for('index', _anchor='header-nav'))
+            session['itemIdRated'] = -1 # not in inventory, not for item based recommendation
+        if ratingScore <= 3:
+            session.pop('clipURL',None)
+            session.pop('ratingScore', None)
+
+        return redirect(url_for('index', _anchor = 'trailerPlayer'))
+
+    # if request.method == 'POST' and request.form['submit'] == 'watchFullMovie': # better to use anchor tag scroll down without refreshing
+    #     return redirect(url_for('index', _anchor='purchaseMovie'))
+
+
 
     if request.method == 'POST' and request.form['submit']=='findPrice':
         itemToBuy = request.form['itemToBuy']
-        priceAmazon = 1#priceCrawler.getPriceAmazon(itemToBuy)
-        priceURLAmazon = 1#priceCrawler.getURLAmazon(itemToBuy)
+        priceAmazon = priceCrawler.getPriceAmazon(itemToBuy)
+        priceURLAmazon = priceCrawler.getURLAmazon(itemToBuy)
         priceYouTube = priceCrawler.getPriceYouTube(itemToBuy)
         priceURLYouTube = priceCrawler.getURLYouTube(itemToBuy)
+        priceITunes, priceURLITunes = priceCrawler.getPriceITunes(itemToBuy)
         session['itemToBuy'] = itemToBuy
-        session['priceList'] = [priceAmazon, priceYouTube]
-        session['priceURLList']=[priceURLAmazon, priceURLYouTube]
+        session['priceList'] = [priceAmazon, priceYouTube, priceITunes]
+        session['priceURLList']=[priceURLAmazon, priceURLYouTube, priceURLITunes]
         return redirect(url_for('index',_anchor='purchaseMovie'))
 
 
@@ -138,12 +152,24 @@ def index():
     #   REQUEST GET METHOD     #
     ############################
     #  if there is a movie rated
-    if 'ratingScore' in session:
-        itemIdRated = session['itemIdRated']
-        ratingScore = session['ratingScore']
-        ratingScore = int(ratingScore) # it was a string type by default
-        itemsRecommended = process.renderRecommendation(numberToServe=numberToServe, itemId=itemIdRated, ratingScore=ratingScore)
-        itemsRecommended = list(itemsRecommended.iloc[:, -1].values)
+    if 'ratingScore' in session :
+        if session['itemIdRated'] != -1: # rated item not in inventory
+            itemIdRated = session['itemIdRated']
+            ratingScore = session['ratingScore']
+            ratingScore = int(ratingScore) # it was a string type by default
+            itemsRecommended = process.renderRecommendation(numberToServe=numberToServe, itemId=itemIdRated, ratingScore=ratingScore)
+            itemsRecommended = list(itemsRecommended.iloc[:, -1].values)
+        else:
+            if 'username' in session:  # a registered user
+                userId = session['username']  # get userId from cookie
+                userId = int(userId)  # convert unicode type from user's input to python integer
+
+                itemsRecommended = process.renderRecommendation(userId, numberToServe)
+                itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten()
+            else:
+                userId = -1  # -1 represent an unregistered user
+                itemsRecommended = process.renderRecommendation(userId, numberToServe)  # output recommendations for unregistered user
+                itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten()
         # no matter user is registered or not, once item rated, recommend similar item
         if 'username' in session: # user signed in
             userId = session['username']
@@ -171,7 +197,7 @@ def index():
             return render_template('index.html', itemsRecommended=itemsRecommended,clipURL=clipURL, itemToRate=itemToRate,
                                    ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
 
-    # if NO movie was rated
+    # if NO movie was rated or rated movie is not in inventory,  no rating score then no purchase session
     else:
         if 'username' in session: # a registered user
             userId = session['username'] # get userId from cookie
@@ -193,6 +219,12 @@ def index():
 
 @app.route('/login', methods = ['GET','POST'])
 def login():
+    session.pop('clipURL', None)
+    session.pop('ratingScore', None)
+    session.pop('itemIdRated', None)
+    session.pop('itemToBuy', None)
+    session.pop('priceList', None)
+    session.pop('priceURLList', None)
     numUsers = len(DatabaseQueries.getUserFeature())
     if request.method == 'POST':
         userId = request.form['LoginUsername']
@@ -206,6 +238,12 @@ def login():
 
 @app.route('/logout')
 def logout():
+    session.pop('clipURL', None)
+    session.pop('ratingScore', None)
+    session.pop('itemIdRated', None)
+    session.pop('itemToBuy', None)
+    session.pop('priceList', None)
+    session.pop('priceURLList', None)
     session.pop('username', None) # clear cookie
     return redirect(url_for('index'))
 
@@ -215,9 +253,15 @@ def logout():
 
 @app.route('/signup', methods = ['GET','POST'])
 def signup():
+    session.pop('clipURL', None)
+    session.pop('ratingScore', None)
+    session.pop('itemIdRated', None)
+    session.pop('itemToBuy', None)
+    session.pop('priceList', None)
+    session.pop('priceURLList', None)
     # form = SignupForm(request.form)
     numUsers = len(DatabaseQueries.getUserFeature())
-    if request.method == 'POST' and request.form['submit'] == 'search': # add form validation later: and form.validate()
+    if request.method == 'POST': #
         # get new user from input
         userId = numUsers + 1 # new user Id is assigned
         age = request.form['age'] # get user's input from form with input name 'age'

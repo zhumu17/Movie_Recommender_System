@@ -81,13 +81,12 @@
     </div>
 
     <section class="row"  >
-        {% for i in range(12) %}
+        {% for i in range(18) %}
           <div class="col-md-2 col-sm-3 col-xs-12 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended[i]}}"
                        src="../static/images/moviePosters/{{itemsRecommended[i]}}.jpg" >
-                  <a id = "aboutlink" href="#"></a>
-                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle"
+                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
                             style=" margin-bottom: 10px;width: 175px; height:240px; background: url('../static/images/moviePosters/{{itemsRecommended[i]}}.jpg') no-repeat;
                             background-size: cover; font-size: 3em; "></button>
               </form>
@@ -103,8 +102,8 @@
 
 
 
-    <section style="margin-bottom:100px;" id="trailerPlayer" >
-        <br><br>
+    <section style="margin-top:100px; margin-bottom:100px;" id="trailerPlayer" >
+        <br>
           {% if clipURL %}
               <div id="player" class="text-center visible-md visible-lg ">
                   <iframe id="myVideo" width="950" height="550" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
@@ -117,24 +116,37 @@
                   <iframe width="200" height="100" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
               </div>
 
-                <form method="post" >
-                    <fieldset class="rating centered" >
-                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Awesome!">5 stars</label>
-                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Pretty good">4 stars</label>
-                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="Not bad">3 stars</label>
-                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Just so so">2 stars</label>
-                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="It sucks">1 star</label>
-                    </fieldset>
-                    <p class="text-center" style="color: gold; margin-top:-30px;">
-                        If you love it and submitted rating <br>
-                        We can help you find the HD Full Movie with best price online :)
-                    </p>
-                    <div class="button-rate-it">
-                         <button name="submit" type="submit" class="btn btn-success btn-lg" value="rateScore"> Submit Rating</button>
+                {% if ratingScore %}
+                    {% if ratingScore >=4 %}
+                        <div class="button-rate-it" style="margin-top:20px;">
+                            <div id="here">
+                                <a id="purchaseMovielink" href="#purchaseMovie">
+                                    <button class="btn btn-success btn-lg"> Watch HD Full Movie</button>
+                                </a>
+                                <a href="#">
+                                    <button class="btn btn-danger btn-lg"> Maybe Later</button>
+                                </a>
+                            </div>
+                        </div>
 
-                    </div>
+                    {% endif %}
 
-                </form>
+                {% else %}
+                    <form method="post" >
+                        <fieldset class="rating centered" >
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Love it!">5 stars</label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Like it">4 stars</label>
+                            <input type="radio" id="star3" name="rating" value="3" checked /><label for="star3" title="So so">3 stars</label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Dislike it">2 stars</label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Hate it!">1 star</label>
+                        </fieldset>
+                        <div class="button-rate-it" style="margin-top:-45px;">
+                             <button name="submit" type="submit" class="btn btn-warning"
+                                     value="rateScore" style="font-weight:bold; color:#191970; background-color: #FF8C00;"> Submit Rating</button>
+                        </div>
+
+                    </form>
+                {% endif %}
 
 
           {% else %}
@@ -148,10 +160,9 @@
               </div>
 
                <div class="button-rate-it" >
-                   <a href="/">
-                       <button class="btn btn-success btn-lg" > Select Or Search A Trailer From Above</button>
+                   <a href="#">
+                       <button class="btn btn-danger btn-lg" > Select a Trailer to Play</button>
                    </a>
-
                </div>
           {% endif %}
 
@@ -161,28 +172,25 @@
 {% if ratingScore %}
     {% if ratingScore >=4 %}
             <section  id="purchaseMovie" style="margin-bottom:200px;">
-                <h2  class="text-center">Want To Watch Full Movie?</h2>
-                <div class="text-center">
-                    <p class="text-center-purchaseMovie">Let Us Find The Best Price Available Online For You</p>
+                <h2  class="text-center">Let Us Find The HD Movie For You </h2>
+                <h2  class="text-center" style="font-size:25px;">FOR THE BEST PRICE ONLINE</h2>
+                <div class="text-center" >
+                    <!--<p class="text-center-purchaseMovie">Let Us Find The Best Price Available Online For You</p>-->
                     <div>
                         <form id="formRateMenu" action="" method="post">
                              <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
                             <span class="button" >
-                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > FIND PRICES</button>
+                                    <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg" > Go For It!!</button>
                             </span>
                             <div class="row">
 
                                 <div class="col-lg-4 co-md-4">
                                       <img width="200" height="200" src="../static/images/LogoAmazon.jpg" alt="image not found">
                                 </div>
-
-
                                 <div class="col-lg-4 co-md-4" >
                                     <br>
                                      <img width="200" height="120" src="../static/images/LogoYouTube.jpg" alt="image not found">
                                 </div>
-
-
                                 <div class="col-lg-4 co-md-4" >
                                     <br>
                                       <img width="120" height="120" src="../static/images/LogoITunes.jpg" alt="image not found">
@@ -195,12 +203,17 @@
                             <div class="row" style="margin-bottom:50px;">
                                 <div class="col-lg-4 co-md-4">
                                     <a href="{{priceURLList[0]}}" target="_blank">
-                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > WATCH FROM ${{priceList[0]}}</button>
+                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > {{priceList[0]}}</button>
                                     </a>
                                 </div>
                                 <div class="col-lg-4 co-md-4">
                                     <a href="{{priceURLList[1]}}" target="_blank">
-                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > WATCH FROM ${{priceList[1]}}</button>
+                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > {{priceList[1]}}</button>
+                                    </a>
+                                </div>
+                                <div class="col-lg-4 co-md-4">
+                                    <a href="{{priceURLList[2]}}" target="_blank">
+                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > {{priceList[2]}}</button>
                                     </a>
                                 </div>
                             </div>
@@ -224,15 +237,16 @@
 
   <footer class="panel-footer">
     <div class="container">
-      <div class="text-center text-small">Developed by: Mu Zhu (zhumu17@gmail.com) <br> Dataset provided by: grouplens.org  <br> Copyright reserved &copy; 2018</div>
+      <div class="text-center text-small">Developed by: Mu Zhu (zhumu17@gmail.com) <br> Original Movie Dataset provided by grouplens.org  <br> Copyright reserved &copy; 2018</div>
     </div>
   </footer>
 
   <!-- jQuery (Bootstrap JS plugins depend on it) -->
-
-  <!--<script src="js/jquery-2.1.4.min.js"></script>-->
-  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/jquery-1.4.2.js"></script>
+  <!--<script src="js/jquery-1.11.3.min.js"></script>-->
   <script src="js/bootstrap.min.js"></script>
   <script src="js/script.js"></script>
+
 </body>
 </html>

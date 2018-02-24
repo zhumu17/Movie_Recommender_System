@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import json
 
 def getPriceAmazon(itemName):
     query = itemName
@@ -9,20 +10,27 @@ def getPriceAmazon(itemName):
     html_data = resp.text
     soup = BeautifulSoup(html_data, 'html.parser')
     numScrape = 3
-    tags = soup.find_all(attrs={'class':'a-offscreen'}, limit=numScrape)
+    tags = soup.find_all(attrs={'class':'sx-price sx-price-large'}, limit=numScrape)
     if not tags:
         price = 'Not Found'
         return price
-    print(tags)
+    # print("tag is", tags)
+
+
     priceTag = str(tags[0])
-    # print(priceTag)
+    # print("priceTag is :", priceTag)
     # print(type(priceTag))
-    price = re.findall('\$(.+)</span>', priceTag)
-    price = price[0]
+
+    priceWithoutDecimal = re.findall('([0-9]+)', priceTag)
+    price = priceWithoutDecimal[0] + "." + priceWithoutDecimal[1]
+    # print(priceWithoutDecimal)
+    # print(price)
+
     if not price:
         price = 'Not Found'
+        return price
     else:
-        price = float(price)
+        price = "$" + str(price)
     print(price)
 
     return price
@@ -59,8 +67,9 @@ def getPriceYouTube(itemName):
 
     if not price:
         price = 'Not Found'
+        return price
     else:
-        price = float(price)
+        price = "$" + str(price)
     print(price)
 
     return price
@@ -71,12 +80,78 @@ def getURLYouTube(itemName):
     return url
 
 
+def getPriceITunes(itemName):
+    price = "Not Found" # as backup
+
+    queryList = re.findall('(.*)[1][9][0-9][0-9]|(.*)[2][0][0-9][0-9]', itemName) # remove year and just use name
+    if queryList:
+        print(queryList)
+
+        for element in queryList[0]:
+            if element:
+                name = element
+                break
+    else:
+        name = itemName
+    # print(name)
+    nameWords = name.split()
+    # print(nameWords)
+    query = nameWords[0]
+    # print(type(query))
+    for word in nameWords[1:]:
+        query = query + "+" + word
+    # print(query)
+
+    url = "https://itunes.apple.com/search?term=" + query + "&country=us&media=movie"
+    resp = requests.get(url)
+    # print(resp)
+    JSON = resp.text
+
+    parsedJSON = json.loads(JSON)
+
+    print(parsedJSON)
+    # print(type(parsedJSON))
+
+    if not parsedJSON['results']:
+        price = "Not Found"
+        return price, "www.google.com"
 
 
+
+    print(parsedJSON['results'][0])
+    # print("number of elements in list:", len(parsedJSON['results']))
+
+    if 'trackPrice' in parsedJSON['results'][0]:
+        price = parsedJSON['results'][0]['trackPrice']
+
+    elif 'trackHdPrice' in parsedJSON['results'][0]:
+        price = parsedJSON['results'][0]['trackHdPrice']
+
+    else:
+        price = "Not Found"
+        return price, "www.google.com"
+
+    price = "$" + str(price)
+    # print(price)
+
+    if 'trackViewUrl' in parsedJSON['results'][0]:
+        urlITunes = parsedJSON['results'][0]['trackViewUrl']
+    else:
+        urlITunes = "https://www.google.com"
+
+    return price, urlITunes
+
+def getURLITunes(itemName, itemIdITunes): # NOT USED be cause getPriceITunes can get url!!
+    url = "https://itunes.apple.com/us/movie/" + itemName + "/id" + str(itemIdITunes)
+    return url
 
 
 
 
 if __name__=="__main__":
     # getPriceAmazon("return of the jedi 1983")
-    getPriceYoutube("return of the jedi 1983")
+    # getPriceYouTube("return of the jedi 1983")
+    # getPriceITunes("the godfarther (1972)")
+    getPriceITunes("the last jedi")
+
+    #976965981 for testing itemId_iTunes
