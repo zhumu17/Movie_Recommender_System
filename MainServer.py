@@ -110,7 +110,7 @@ def index():
     itemsImageURL = {'classical': [], 'itemBased': [], 'userBased': [] }
     # Other the recommendation cases will be covered specifically later
     itemsRecommended['classical'], itemsImageURL['classical'] = flowControl.renderRecommendation(userId = -1, numberToServe = numberToServe, classical=1)  # output recommendations for unregistered user
-    itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId = -1, numberToServe = numberToServe)  # output recommendations for unregistered user
+    # itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId = -1, numberToServe = numberToServe)  # output recommendations for unregistered user
 
 
     print(request.method)
@@ -214,7 +214,7 @@ def index():
             else: # treated in the beginning
                 userId = -1  # -1 represent an unregistered user
                 itemsRecommended['classical'], itemsImageURL['classical'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe, classical=1)  # output recommendations for unregistered user
-                itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe)  # output recommendations for unregistered user
+                # itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe)  # output recommendations for unregistered user
 
         # check if user signed in, if so then record the rating
         if 'username' in session: # user signed in
@@ -256,7 +256,7 @@ def index():
         else:
             userId = -1 # -1 represent an unregistered user
             itemsRecommended['classical'], itemsImageURL['classical'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe, classical=1)  # output recommendations for unregistered user
-            itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe)  # output recommendations for unregistered user
+            # itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe)  # output recommendations for unregistered user
 
     return render_template('index.html', itemsRecommended=itemsRecommended, itemsImageURL=itemsImageURL, clipURL=clipURL)
 
