@@ -7,10 +7,14 @@ class UserAnalyzer(object):
 
     def analyze(self, userId, numRatingsPerUser):
         # categorize users into unregistered, new and old
+
+        # print(numRatingsPerUser)
         if userId == -1:
             userType = 'unregistered'
         elif userId in numRatingsPerUser.loc[:,'userId']:
-            if numRatingsPerUser.loc[userId,list(numRatingsPerUser)[1]] >= 5: # if the user has already rated more than certain number of items, that's an old user
+            # print(userId)
+            # print(numRatingsPerUser.loc[userId,'numOfRatings'])
+            if numRatingsPerUser.loc[userId,'numOfRatings'] >= 10: # if the user has already rated more than certain number of items, that's an old user
                 userType = 'old'
             else:
                 userType = 'new'

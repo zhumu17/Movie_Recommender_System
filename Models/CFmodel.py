@@ -28,7 +28,9 @@ class CFmodel():
         # SVD will be used for collaborative filtering after the rare items have enough ratings
         indices = itemFeatureTable.index
         self.knnModel.fit(itemFeatureTable) # firstly find similar item ratings to fill rating  matrix
-        assert (ratingsMat.shape[1] == itemFeatureTable.index.max())
+        # print("ratingsMat.shape[1]",ratingsMat.shape[1])
+        # print("itemFeatureTable.index.max()",itemFeatureTable.index.max())
+        # assert (ratingsMat.shape[1] == itemFeatureTable.index.max())
 
         rareCases = np.where((ratingsMat > 0).sum(axis=0) < self.RARECASE_THRESHOLD)[0]
         # if an item has less than 5 ratings, it is considered as a rare case
@@ -38,10 +40,10 @@ class CFmodel():
         fillCount = 0
         ratingsMatFinal = ratingsMat.copy() # fill ratings of rarecases, but don't want to change the ratingsMat
         for case in rareCases:
-            if case + 1 in itemFeatureTable.index: # dataframe index is pre-modified as starting from 1
-                features = itemFeatureTable.loc[case + 1] # Content based item feature
+            if case  in itemFeatureTable.index: # dataframe index is pre-modified as starting from 1
+                features = itemFeatureTable.loc[case ] # Content based item feature
                 neighbors = self.knnModel.kneighbors(features.values.reshape(1, -1), return_distance=False)[0]
-                neighborPos = indices[neighbors] - 1 # from pandas index to matrix so -1
+                neighborPos = indices[neighbors]  # from pandas index to matrix so -1
                 # compute the number of ratings got by the neighbors from each user
                 target_count = (ratingsMat[:, neighborPos] > 0).sum(axis=1) # only count number of ratings that > 0
                 # compute the predicted ratings generated from the content-based model
@@ -59,7 +61,7 @@ class CFmodel():
         # now we have the filled matrix for matrix factorization
         self.log.info("Number of ratings added by content-based model: %s" % fillCount)
 
-        self._CFSVD(ratingsMatFinal) # Finally SVD, can be replaced by SGD, return ratings
+        self._CFSVD(ratingsMat) # Finally SVD, can be replaced by SGD, return ratings
 
     # predict method just predict ratings, no recommendations yet
     def predict(self, userId):

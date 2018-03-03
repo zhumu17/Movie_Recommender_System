@@ -34,15 +34,16 @@
   </header>
 
   <div id="main-content" class="container">
-    <section class = "section2">
-        <h2  class="text-center">Please Enter Your User ID</h2>
+    <section class = "section2 white-boxes" style="margin-left:30%;margin-right:30%; padding-bottom:50px;">
+        <h2  class="text-center" style="font-size:35px;">Please Enter Your User ID</h2>
         <div class="text-center">
             <p class="text-center-section2">A valid user ID is an integer between 1 to {{numUsers}}</p>
+            <p class="text-center text-small"> For Demo purpose, no username or password required</p>
             <div>
                 <form method="post">
                     <p><input type="number" min="1" max="{{numUsers}}" name = "LoginUsername" class="user-input-login"></p>
                     <div class="button">
-                     <button type="submit" class="btn btn-success btn-lg" value="login"> Enter </button>
+                     <button type="submit" class="btn btn-success btn-lg" value="login"> Sign In </button>
                      <!--<button type="submit" class="glyphicon glyphicon-remove" > Cancel </button>-->
                     </div>
                 </form>

@@ -3,7 +3,7 @@
 
 class MostPopularModel(object):
     # set a threshold to avoid item rated high but very vew number of ratings
-    N_Freq_limit = 0.0022  # at least 0.2% of users have rated it can be qualified to be considered if it is most popular
+    N_Freq_limit = 0.001  # at least 0.1% of users have rated it can be qualified to be considered if it is most popular
 
     def __init__(self):
         pass

@@ -12,7 +12,7 @@ def getPriceAmazon(itemName):
     numScrape = 3
     tags = soup.find_all(attrs={'class':'sx-price sx-price-large'}, limit=numScrape)
     if not tags:
-        price = 'Not Found'
+        price = 'Price Not Found'
         return price
     # print("tag is", tags)
 
@@ -27,10 +27,10 @@ def getPriceAmazon(itemName):
     # print(price)
 
     if not price:
-        price = 'Not Found'
+        price = 'Price Not Found'
         return price
     else:
-        price = "$" + str(price)
+        price = "Watch From $" + str(price)
     print(price)
 
     return price
@@ -56,7 +56,12 @@ def getPriceYouTube(itemName):
     priceTag = re.findall('(\$.+)</span>?', tags)
     # print(priceTag)
     # print(len(priceTag))
-    priceTag = (priceTag[0])
+
+    if not priceTag:
+        price = 'Price Not Found'
+        return price
+    else:
+        priceTag = (priceTag[0])
     # print(priceTag)
 
     # priceTag='$16.99</span></span></button>, <button aria-expanded="false" aria-haspopup="true" '
@@ -66,10 +71,10 @@ def getPriceYouTube(itemName):
 
 
     if not price:
-        price = 'Not Found'
+        price = 'Price Not Found'
         return price
     else:
-        price = "$" + str(price)
+        price = "Watch From $" + str(price)
     print(price)
 
     return price
@@ -131,7 +136,7 @@ def getPriceITunes(itemName):
         price = "Not Found"
         return price, "www.google.com"
 
-    price = "$" + str(price)
+    price = "Watch From $" + str(price)
     # print(price)
 
     if 'trackViewUrl' in parsedJSON['results'][0]:

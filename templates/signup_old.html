@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/styles1.css">
+</head>
+
+<body id="signup-page">
+<header>
+    <nav id="header-nav" class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+            <a href="/" class="pull-left visible-md visible-lg">
+                <div id="logo-img"></div>
+            </a>
+          <div class="navbar-brand">
+            <a href="/"><h1>Movie Universe</h1></a>
+          </div>
+        </div>
+        <div>
+           <ul id="nav-list" class="nav navbar-nav navbar-right">
+            <li>
+              <a href="/">
+                <span class="glyphicon glyphicon-home"></span><br> Home </a>
+            </li>
+          </ul><!-- #nav-list -->
+        </div><!-- .collapse .navbar-collapse -->
+      </div><!-- .container -->
+    </nav><!-- #header-nav -->
+  </header>
+
+  <div id="main-content" class="container">
+    <section class ="section2">
+        <h2  class="text-center"> Hi, you will be registered as user ID:<br> {{numUsers+1}} </h2>
+        <p class="text-center text-center-signup">Please fill the basic information below to finish sign-up: </p>
+        <p class="text-center text-small">(For Demo purpose, no username or password required)
+        </p>
+        <div class="text-center col-md-12 col-sm-12 col-xs-12">
+            <div>
+                <form  method="post">
+                    <p class="text-center-signup">How old are you?
+                        <!--<input type="text" name="age" class="text-form1-signup">-->
+                        <!--<span class="text-xs">(type an integer number)</span>-->
+                     <select name="age" id="age" class="text-dropdown">
+                         {% for i in range(5, 81) %}
+                            <option value="{{i}}">{{i}}</option>
+                         {% endfor %}
+                     </select>
+
+                    <p class="text-center-signup"><span>What is your gender?</span> <br>
+                        <input type="radio" name="gender" value="male" checked> Male
+                        <input type="radio" name="gender" value="female"> Female
+                    </p>
+
+                    <p class="text-center-signup">What do you do?
+                    <!--<input list="occupation" name="occupation" class="text-form2-signup">-->
+
+                    <select name="occupation" id="occupation" class="text-dropdown">
+                        <option value="administrator">administrator</option>
+                        <option value="artist">artist</option>
+                        <option value="doctor">doctor</option>
+                        <option value="educator">educator</option>
+                        <option value="engineer">engineer</option>
+                        <option value="entertainment">entertainment</option>
+                        <option value="executive">executive</option>
+                        <option value="healthcare">healthcare</option>
+                        <option value="homemaker">homemaker</option>
+                        <option value="lawyer">lawyer</option>
+                        <option value="librarian">librarian</option>
+                        <option value="marketing">marketing</option>
+                        <option value="none">none</option>
+                        <option value="other">other</option>
+                        <option value="programmer">programmer</option>
+                        <option value="retired">retired</option>
+                        <option value="salesman">salesman</option>
+                        <option value="scientist">scientist</option>
+                        <option value="student">student</option>
+                        <option value="technician">technician</option>
+                        <option value="writer">writer</option>
+                    </select>
+
+                    </p>
+
+                    <div class="button bottom-space">
+                     <button type="submit" class="btn btn-success btn-lg" value="Signup"> Sign up </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+  </div>
+
+    <div class="container">
+      <div class="text-center"></div>
+    </div>
+
+
+</body>
+</html>

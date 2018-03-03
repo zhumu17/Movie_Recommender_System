@@ -11,7 +11,7 @@ class KNNmodel(object):
 
     def train(self, userFeatureTable, ratingsMat):
         # first do simple feature preprocessing, making age between 0 ~ 1, along with all other data in 0 ~ 1
-        userFeatureTable.loc[:, "age"] = userFeatureTable.loc[:, "age"] / 10.
+        userFeatureTable.loc[:, "Action"] = userFeatureTable.loc[:, "Action"]
         # print(userFeatureTable.head())
         # train UNSUPERVISED Nearest Neighbor for clustering, just to get the neighbors users, so only fit(userFeatureTable)
         # don't be confused with Supervised K Nearest Neighbor, which directly predict labels and fit(feature, label)

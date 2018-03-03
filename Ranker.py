@@ -33,11 +33,15 @@ class Ranker(object):
         if "userBased" in recommendations:  # online exists as long as user has been active
             results.extend(recommendations["userBased"])  # should only has one
 
-        if ("itemBased" not in recommendations) and ("collaborativeFiltering" not in recommendations) and ("userBased" not in recommendations):  # most popular should always exist
+        if "mostPopular" in recommendations:  # most popular should always exist
             # if there is no personalized recs, the remaining should be filled by most popular
-            results.extend(recommendations["popular"][:numberToServe*2])
-        else:
-            self.log.error("recommendations do not contain popular items")
+            results.extend(recommendations["mostPopular"][:numberToServe*3])
+
+        if "recentPopular" in recommendations:  # most popular should always exist
+            # if there is no personalized recs, the remaining should be filled by most popular
+            results.extend(recommendations["recentPopular"][:numberToServe*3])
+
+
 
 
         # remove the already visited items from
@@ -51,8 +55,11 @@ class Ranker(object):
         # results = list(set(results) - ratedItems)[:numberToServe]
         # except ValueError:
         #     results = np.random.choice(results, numberToServe, replace=False)
-        results = list(set(results[:numberToServe*2])) # remove duplcates among different recommendation cases
-        results = np.random.choice(results, numberToServe, replace=False)
+        results = list(set(results[:numberToServe*3])) # remove duplcates among different recommendation cases
+        # print("results from ranker", results)
+        # print(len(results))
+        # print(numberToServe)
+        results = np.random.choice(results, numberToServe*3, replace=False)
         return list(results)
 
 

@@ -25,7 +25,7 @@
   color: white; /* adjust */
   opacity: 1;
   font-size: 1.7em;
-  font-family:  Cursive;
+  font-family:  Snell Roundhand, cursive;
   text-shadow: 1px 1px 1px #222;
   margin-top: 0;
   margin-bottom: 0;
@@ -41,7 +41,7 @@
   margin-top: 2px;
 }
 #nav-list a {
-  color: red;
+  color: #FF4500;
   text-align: center;
 }
 #nav-list a:hover {
@@ -73,6 +73,10 @@
 
     display: inline-block;
 }
+
+
+
+
 /* END HEADER */
 
 
@@ -114,7 +118,7 @@ h2{
 
 .movie-image {
   position: relative;
-  border: 1px solid #191970;
+  border: 1px solid #696969;
   overflow: hidden;
   width: 200px;
   height: 240px;
@@ -156,20 +160,37 @@ h2{
 
 
 
-
-
 #menu-categories-title + div {
   margin-bottom: 50px;
   opacity: .5;
 }
 
+
+.text-movie-title-small {
+  display: block;
+  width: 170px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .text-left{
     color: #FFD700;
-    margin-top: 20px;
+    margin-top: 15px;
     margin-left: 0px;
     margin-bottom: 10px;
     font-size: 15px;
+    overflow: hidden;
+/*
+    white-space: nowrap;
+*/
+/*
+    text-overflow: ellipsis;
+*/
+
 }
+
+
 
 
 
@@ -185,7 +206,7 @@ span.glyphicon-link {
 .button {
     font-family: Arial;
     font: Arial;
-    font-weight: bold;
+    font-weight: lighter;
     font-size: 30px;
     border: none;
     color: #000000;
@@ -224,6 +245,7 @@ span.glyphicon-link {
 .text-small {
   font-size: 12px;
   color: grey;
+  margin-bottom: 20px;
 }
 
 .panel-footer {
@@ -423,7 +445,7 @@ span.glyphicon-link {
 }
 
 .rating > input:checked ~ label {
-    color: #f70;
+    color: #A0522D;
     text-shadow:1px 1px #c60, 2px 2px #940, .1em .1em .2em rgba(0,0,0,.5);
 }
 
@@ -438,7 +460,7 @@ span.glyphicon-link {
 .rating > input:checked ~ label:hover,
 .rating > input:checked ~ label:hover ~ label,
 .rating > label:hover ~ input:checked ~ label {
-    color: #ea0;
+    color: #FFFF00;
     text-shadow:1px 1px goldenrod, 2px 2px #B57340, .1em .1em .2em rgba(0,0,0,.5);
 }
 
@@ -455,7 +477,7 @@ span.glyphicon-link {
 
 .movie-image-menu {
   position: relative;
-  border: 2px solid #3F0C1F;
+  border: 2px solid #D3D3D3;
   overflow: hidden;
   width: 200px;
   height: 240px;

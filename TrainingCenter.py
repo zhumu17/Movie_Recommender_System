@@ -15,9 +15,10 @@ class TrainingCenter():
 
         ratings = DatabaseQueries.getRatings().loc[:, "userId":]
         ratings.index = ratings.index + 1  # make dataframe index start from 1 instead of 0 by default
-        itemFeatureTable = DatabaseQueries.getItemFeature().loc[:, "unknown":]
-        itemFeatureTable.index = itemFeatureTable.index + 1
-        userFeatureTable = DatabaseQueries.getUserFeature().loc[:, "age":]
+        df_itemFeature = DatabaseQueries.getItemFeature()
+        itemFeatureTable = df_itemFeature[df_itemFeature.Year > 1998 ].loc[:, "Action":] # set year as a filter or always old movie ranks first
+        # itemFeatureTable.index = itemFeatureTable.index + 1
+        userFeatureTable = DatabaseQueries.getUserFeature().loc[:, "Action":]
         userFeatureTable.index = userFeatureTable.index + 1
         ratingsMatrix = self.transformToMat(ratings)
 
@@ -29,12 +30,23 @@ class TrainingCenter():
         self.pushModel(model, ModelStore.MP_MODEL_KEY)
         self.log.info("Most Popular Model training finished")
 
-        model = self.modelStore.getModel(ModelStore.KNN_MODEL_KEY)
-        model.train(userFeatureTable, ratingsMatrix)
-        self.pushModel(model, ModelStore.KNN_MODEL_KEY)
-        self.log.info("K-Nearest Neighborhood Model training finished")
+        model = self.modelStore.getModel(ModelStore.RP_MODEL_KEY)
+        model.train()
+        self.pushModel(model, ModelStore.RP_MODEL_KEY)
+        self.log.info("Recent Popular Model training finished")
+
+
+        # model = self.modelStore.getModel(ModelStore.KNN_MODEL_KEY)
+        # model.train(userFeatureTable, ratingsMatrix)
+        # self.pushModel(model, ModelStore.KNN_MODEL_KEY)
+        # self.log.info("K-Nearest Neighborhood Model training finished")
 
         model = self.modelStore.getModel(ModelStore.CF_MODEL_KEY)
+        # print(ratings.userId.max())
+        # print(ratings.itemId.max())
+        # print(ratingsMatrix.shape)
+        # print(itemFeatureTable.shape)
+
         model.train(ratingsMatrix, itemFeatureTable)
         self.pushModel(model, ModelStore.CF_MODEL_KEY)
         self.log.info("Collaborative Filtering Model training finished")
@@ -49,7 +61,10 @@ class TrainingCenter():
 
     @staticmethod
     def transformToMat(ratings):
-        ratingsMatrix = np.zeros([ratings.userId.max(), ratings.itemId.max()])
+        df_inventory = DatabaseQueries.getInventory()
+        df_userFeature = DatabaseQueries.getUserFeature()
+        ratingsMatrix = np.zeros([df_userFeature.userId.max(), df_inventory.itemId.max()])
         for row in ratings.itertuples():
+            # print(row)
             ratingsMatrix[row[1]-1, row[2]-1] = row[3]
         return ratingsMatrix

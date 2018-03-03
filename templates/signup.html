@@ -34,62 +34,106 @@
   </header>
 
   <div id="main-content" class="container">
+
     <section class ="section2">
-        <h2  class="text-center"> Hi, you will be registered as user ID:<br> {{numUsers+1}} </h2>
-        <p class="text-center text-center-signup">Please fill the basic information below to finish sign-up: </p>
-        <div class="text-center col-md-12 col-sm-12 col-xs-12">
-            <div>
-                <form  method="post">
-                    <p class="text-center-signup">How old are you?
-                        <!--<input type="text" name="age" class="text-form1-signup">-->
-                        <!--<span class="text-xs">(type an integer number)</span>-->
-                     <select name="age" id="age" class="text-dropdown">
-                         {% for i in range(5, 81) %}
-                            <option value="{{i}}">{{i}}</option>
-                         {% endfor %}
-                     </select>
+        <h2  class="text-center" style="font-size:24px;"> PLEASE NOTE YOUR ASSIGNED USER ID:<br> </h2>
+        <h2  class="text-center" style="font-size:45px;"> {{numUsers+1}} </h2>
+        <div class="white-boxes" style="margin-left:200px; margin-right:200px;">
+            <p class="text-center text-small">For Demo purpose, no username or password required</p>
+        <p class="text-center text-center-signup" style="font-weight:100;">Select Your Favorite Genres Below Then Sign Up: </p>
 
-                    <p class="text-center-signup"><span>What is your gender?</span> <br>
-                        <input type="radio" name="gender" value="male" checked> Male
-                        <input type="radio" name="gender" value="female"> Female
-                    </p>
-
-                    <p class="text-center-signup">What do you do?
-                    <!--<input list="occupation" name="occupation" class="text-form2-signup">-->
-
-                    <select name="occupation" id="occupation" class="text-dropdown">
-                        <option value="administrator">administrator</option>
-                        <option value="artist">artist</option>
-                        <option value="doctor">doctor</option>
-                        <option value="educator">educator</option>
-                        <option value="engineer">engineer</option>
-                        <option value="entertainment">entertainment</option>
-                        <option value="executive">executive</option>
-                        <option value="healthcare">healthcare</option>
-                        <option value="homemaker">homemaker</option>
-                        <option value="lawyer">lawyer</option>
-                        <option value="librarian">librarian</option>
-                        <option value="marketing">marketing</option>
-                        <option value="none">none</option>
-                        <option value="other">other</option>
-                        <option value="programmer">programmer</option>
-                        <option value="retired">retired</option>
-                        <option value="salesman">salesman</option>
-                        <option value="scientist">scientist</option>
-                        <option value="student">student</option>
-                        <option value="technician">technician</option>
-                        <option value="writer">writer</option>
-                    </select>
-
-                    </p>
-
-                    <div class="button bottom-space">
-                     <button type="submit" class="btn btn-success btn-lg" value="Signup"> Sign up </button>
+          <div class="row">
+        <div >
+                <form method="post">
+                  <fieldset>
+                  <!--<legend>Choose your preferences below:</legend>-->
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Action" name="Action" value="1">
+                      <label for="Action" style="font-weight:100;">Action</label>
                     </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Adventure" name="Adventure" value="1">
+                      <label for="Adventure" style="font-weight:100;">Adventure</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Animation" name="Animation" value="1">
+                      <label for="Animation" style="font-weight:100;">Animation</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Children" name="Children" value="1">
+                      <label for="Children" style="font-weight:100;">Children</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Comedy" name="Comedy" value="1">
+                      <label for="Comedy" style="font-weight:100;">Comedy</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Crime" name="Crime" value="1">
+                      <label for="Crime" style="font-weight:100;">Crime</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Documentary" name="Documentary" value="1">
+                      <label for="Documentary" style="font-weight:100;">Documentary</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Drama" name="Drama" value="1">
+                      <label for="Drama" style="font-weight:100;">Drama</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Fantasy" name="Fantasy" value="1">
+                      <label for="Fantasy" style="font-weight:100;">Fantasy</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="FilmNoir" name="FilmNoir" value="1">
+                      <label for="FilmNoir" style="font-weight:100;">FilmNoir</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Horror" name="Horror" value="1">
+                      <label for="Horror" style="font-weight:100;">Horror</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="IMAX" name="IMAX" value="1">
+                      <label for="IMAX" style="font-weight:100;">IMAX</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Musical" name="Musical" value="1">
+                      <label for="Musical" style="font-weight:100;">Musical</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Mystery" name="Mystery" value="1">
+                      <label for="Mystery" style="font-weight:100;">Mystery</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Romance" name="Romance" value="1">
+                      <label for="Romance" style="font-weight:100;">Romance</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="SciFi" name="SciFi" value="1">
+                      <label for="SciFi" style="font-weight:100;">SciFi</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Thriller" name="Thriller" value="1">
+                      <label for="Thriller" style="font-weight:100;">Thriller</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="War" name="War" value="1">
+                      <label for="War" style="font-weight:100;">War</label>
+                    </div>
+                    <div class="text-center col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                      <input type="checkbox" id="Western" name="Western" value="1">
+                      <label for="Western" style="font-weight:100;">Western</label>
+                    </div>
+
+                    <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <button name="submit" type="submit" class="btn btn-lg btn-success">Sign Me Up</button>
+                    </div>
+                  </fieldset>
                 </form>
             </div>
         </div>
+        </div>
     </section>
+
   </div>
 
     <div class="container">

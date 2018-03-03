@@ -16,24 +16,20 @@ def createTables():
     cur.execute("DROP TABLE IF EXISTS ratings")
 
 
-    cur.execute("CREATE TABLE inventory (itemId INTEGER PRIMARY KEY NOT NULL, itemName TEXT)")
+    cur.execute("CREATE TABLE inventory (itemId INTEGER PRIMARY KEY NOT NULL, itemName TEXT, itemImageURL TEXT)")
 
     cur.execute('''CREATE TABLE itemFeature (itemId INTEGER PRIMARY KEY NOT NULL, itemName TEXT,
-    Date TEXT, URL TEXT, unknown INTEGER, Action INTEGER, Adventure INTEGER, Animation INTEGER, Children INTEGER,
-    Comedy INTEGER, Crime INTEGER, Documentary INTEGER, Drama INTEGER, Fantasy INTEGER, FilmNoir INTEGER, Horror INTEGER,
+    Year INTEGER, Action INTEGER, Adventure INTEGER, Animation INTEGER, Children INTEGER,
+    Comedy INTEGER, Crime INTEGER, Documentary INTEGER, Drama INTEGER, Fantasy INTEGER, FilmNoir INTEGER, Horror INTEGER, IMAX INTEGER,
     Musical INTEGER, Mystery INTEGER, Romance INTEGER, SciFi INTEGER, Thriller INTEGER, War INTEGER, Western INTEGER)
     ''')
 
-    cur.execute('''CREATE TABLE userFeature (userId INTEGER PRIMARY KEY NOT NULL, age INTEGER, gender_F INTEGER, gender_M INTEGER,
-    occupation_administrator INTEGER, occupation_artist INTEGER, occupation_doctor INTEGER, occupation_educator INTEGER,
-    occupation_engineer INTEGER, occupation_entertainment INTEGER, occupation_executive INTEGER, occupation_healthcare INTEGER,
-    occupation_homemaker INTEGER, occupation_lawyer INTEGER, occupation_librarian INTEGER, occupation_marketing INTEGER,
-    occupation_none INTEGER, occupation_other INTEGER, occupation_programmer INTEGER, occupation_retired INTEGER,
-    occupation_salesman INTEGER, occupation_scientist INTEGER, occupation_student INTEGER, occupation_technician INTEGER,
-    occupation_writer INTEGER)
+    cur.execute('''CREATE TABLE userFeature (userId INTEGER PRIMARY KEY NOT NULL, Year INTEGER, Action INTEGER, Adventure INTEGER, Animation INTEGER, Children INTEGER,
+    Comedy INTEGER, Crime INTEGER, Documentary INTEGER, Drama INTEGER, Fantasy INTEGER, FilmNoir INTEGER, Horror INTEGER, IMAX INTEGER,
+    Musical INTEGER, Mystery INTEGER, Romance INTEGER, SciFi INTEGER, Thriller INTEGER, War INTEGER, Western INTEGER)
     ''')
 
-    cur.execute('''CREATE TABLE ratings (ratingIndex INTEGER PRIMARY KEY NOT NULL, userId INTEGER, itemId INTEGER, rating INTEGER,
+    cur.execute('''CREATE TABLE ratings (userId INTEGER, itemId INTEGER, rating INTEGER,
     FOREIGN KEY(userId) REFERENCES userFeature(userId), FOREIGN KEY(itemId) REFERENCES itemFeature(itemId),
     FOREIGN KEY(itemId) REFERENCES inventory(itemId))
     ''')
@@ -45,6 +41,18 @@ def createTables():
 
     conn.commit()
     conn.close()
+
+# def cleanExcessiveRatings():
+#     conn = sqlite3.connect('database.sqlite')
+#     df_numItems = pd.read_sql_query(''' SELECT MAX(itemId) FROM itemFeature;''', conn)
+#     print(df_numItems.iloc[0,0])
+#     numItems = df_numItems.iloc[0,0]
+#     print(numItems)
+#     cur = conn.cursor()
+#     cur.execute(''' DELETE FROM ratings
+#                     WHERE itemId > ?''', numItems)
+
+
 
 def getInventory():
     conn = sqlite3.connect('database.sqlite')
@@ -78,47 +86,84 @@ def getNumRatingsPerUser():
     df_numRatingsPerUser = pd.read_sql_query('''
     SELECT userId, count(itemId) AS numOfRatings
     FROM ratings
-    GROUP BY userId, ratingIndex, rating; ''', conn)
+    GROUP BY userId; ''', conn)
     conn.commit()
     conn.close()
     return df_numRatingsPerUser
 
 
-def putNewUser(userId, age, gender, occupation):
-    conn = sqlite3.connect('database.sqlite')
-    if gender == 'female':
-        genderCol = 'gender_F'
-    elif gender == 'male':
-        genderCol = 'gender_M'
-    occupationCol = "occupation_" + str(occupation)
+# def putNewUser(userId, age, gender, occupation):
+#     conn = sqlite3.connect('database.sqlite')
+#     if gender == 'female':
+#         genderCol = 'gender_F'
+#     elif gender == 'male':
+#         genderCol = 'gender_M'
+#     occupationCol = "occupation_" + str(occupation)
+#
+#     cur = conn.cursor()
+#     cur.execute('''INSERT INTO userFeature VALUES(?, ?, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)''', (userId, age))
+#     if gender == 'female':
+#         cur.execute('''
+#             UPDATE userFeature
+#             SET gender_F = 1
+#             WHERE userId = ?''', (userId,))
+#     elif gender == 'male':
+#         cur.execute('''
+#             UPDATE userFeature
+#             SET gender_M = 1
+#             WHERE userId = ?''', (userId,))
+#     cur.execute('''
+#     UPDATE userFeature
+#     SET ''' + occupationCol + ''' = 1
+#     WHERE userId= ?''', (userId,))
+#     conn.commit()
+#     conn.close()
 
+def putNewUser(userId, preferences):
+    conn = sqlite3.connect('database.sqlite')
     cur = conn.cursor()
-    cur.execute('''INSERT INTO userFeature VALUES(?, ?, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)''', (userId, age))
-    if gender == 'female':
-        cur.execute('''
-            UPDATE userFeature
-            SET gender_F = 1
-            WHERE userId = ?''', (userId,))
-    elif gender == 'male':
-        cur.execute('''
-            UPDATE userFeature
-            SET gender_M = 1
-            WHERE userId = ?''', (userId,))
-    cur.execute('''
-    UPDATE userFeature
-    SET ''' + occupationCol + ''' = 1
-    WHERE userId= ?''', (userId,))
+    cur.execute('''INSERT INTO userFeature VALUES(?,0,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)''', (userId,
+                preferences[0], preferences[1], preferences[2], preferences[3], preferences[4], preferences[5], preferences[6],
+                preferences[7], preferences[8], preferences[9], preferences[10], preferences[11], preferences[12], preferences[13],
+                preferences[14], preferences[15], preferences[16], preferences[17], preferences[18], ))
+
     conn.commit()
     conn.close()
+
+
+def getRecentPopularItem():
+    conn = sqlite3.connect('database.sqlite')
+    df_recentPopular = pd.read_sql_query('''
+        SELECT I.itemId, I.itemName, I.Year, R.avgRating, R.numRating
+        FROM (
+        SELECT *
+        FROM itemFeature
+        WHERE Year >2008
+        )  AS I JOIN  (
+        SELECT itemId, AVG(rating) AS avgRating, COUNT(rating) AS numRating
+        FROM ratings
+        GROUP BY itemId
+        HAVING numRating>15
+        ORDER BY avgRating DESC
+         ) AS R
+        ON I.itemId = R.itemId
+        ORDER BY R.avgRating DESC
+        ;
+    ''', conn)
+
+
+    conn.commit()
+    conn.close()
+    return df_recentPopular
 
 
 
 def putNewRating(userId, itemId, ratingScore):
     conn = sqlite3.connect('database.sqlite')
     cur = conn.cursor()
-    cur.execute('''SELECT COUNT(ratingIndex) FROM ratings''')
+    cur.execute('''SELECT COUNT(rating) FROM ratings''')
     numRatings=cur.fetchone()[0]+1
-    cur.execute('''INSERT INTO ratings VALUES(?,?,?,?)''', (numRatings, userId, itemId, ratingScore))
+    cur.execute('''INSERT INTO ratings VALUES(?,?,?)''', (userId, itemId, ratingScore))
     conn.commit()
     conn.close()
 
@@ -147,5 +192,6 @@ def replaceTable():
 
 if __name__ == "__main__":
   createTables()
+  # cleanExcessiveRatings()
   # putNewUser(945, 15, 'female', 'artist')
   # putNewRating(1,2,5)

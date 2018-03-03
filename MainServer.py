@@ -10,6 +10,8 @@ import numpy as np
 import DatabaseQueries
 from SearchInventory import searchItem
 import videoCrawler, priceCrawler
+import math
+import UserAnalyzer
 # from wtforms import validators
 
 app = Flask(__name__)
@@ -18,12 +20,12 @@ app.config.from_object('config')
 app.secret_key = 'temp'
 
 
-from Process import Process
+from FlowControl import FlowControl
 
-configMap = {"numberToServe": 18, "data_dir": "DATA"} # basic configuration
+configMap = {"numberToServe": 12, "data_dir": "DATA"} # basic configuration
 numberToServe = configMap["numberToServe"]
-process = Process(configMap)
-process.start() # initialize all the modules/classes, load all the data in the database, start the first model training
+flowControl = FlowControl(configMap)
+flowControl.start() # initialize all the modules/classes, load all the data in the database, start the first model training
 
 
 
@@ -42,6 +44,11 @@ def index():
     # session.pop('priceList', None)
     # session.pop('priceURLList', None)
     print(request.method)
+    if 'username' in session:
+        username = session['username']
+    else:
+        username = []
+    print(username)
     if 'userId' in session:
         userId = session['userId']
     else:
@@ -62,11 +69,21 @@ def index():
     else:
         ratingScore = []
     print('ratingScore in session:', ratingScore)
+    if 'userPreferences' in session:
+        userPreference = session['userPreferences']
+    else:
+        userPreference = []
+    print('userPreferences in session:', userPreference)
     if 'itemIdRated' in session:
         itemIdRated = session['itemIdRated']
     else:
         itemIdRated = []
     print('itemIdRated in session:',itemIdRated)
+    if 'watchFullMovie' in session:
+        watchFullMovie = session['watchFullMovie']
+    else:
+        watchFullMovie = []
+    print('watchFullMovie in session:', watchFullMovie)
     if 'itemToBuy' in session:
         itemToBuy = session['itemToBuy']
     else:
@@ -84,8 +101,18 @@ def index():
     print('priceURLList in session', priceURLList)
 
 
-    itemsRecommended = process.renderRecommendation(userId,numberToServe)  # output recommendations for unregistered user
-    itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten()
+
+
+
+
+    # itemsRecommended = {}
+    itemsRecommended = {'classical': [], 'recentPopular':[], 'itemBased': [], 'userBased': [] }
+    itemsImageURL = {'classical': [], 'itemBased': [], 'userBased': [] }
+    # Other the recommendation cases will be covered specifically later
+    itemsRecommended['classical'], itemsImageURL['classical'] = flowControl.renderRecommendation(userId = -1, numberToServe = numberToServe, classical=1)  # output recommendations for unregistered user
+    itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId = -1, numberToServe = numberToServe)  # output recommendations for unregistered user
+
+
     print(request.method)
 
 
@@ -99,40 +126,55 @@ def index():
         session['itemToRate'] = clipNameInput
         session['clipURL'] = clipURL
         session.pop('ratingScore', None)
+        session.pop('watchFullMovie', None)
         return redirect(url_for('index', _anchor='trailerPlayer'))
 
     if request.method =='POST' and request.form['submit'] == 'selectClip':
         clipNameInput = request.form['clipName']
+        print("clipName Input is : " , clipNameInput)
         clipId = videoCrawler.getVideoId(clipNameInput)
         clipURL = videoCrawler.getVideoURL(clipId)
+        print("clip Name Input URL is : ", clipURL)
         session['itemToRate'] = clipNameInput
         session['clipURL'] = clipURL
         session.pop('ratingScore', None)
+        session.pop('watchFullMovie', None)
+
         return redirect(url_for('index', _anchor='trailerPlayer'))
 
     if request.method == 'POST' and request.form['submit']=='rateScore':
 
         itemToRate = session['itemToRate']
-        ratingScore = int(request.form['rating'])
+        if request.form.get('rating', None) == None:
+            ratingScore = 1
+        else:
+            ratingScore = int(request.form['rating'])
+        # if ratingScore >=4:
+        #     if session['ratingScore']:
+        #         session['ratingScoreHighest'] = np.maximum(ratingScore, session['ratingScore'])
+        #     else:
+        #         session['ratingScoreHighest'] = ratingScore
         session['ratingScore'] = ratingScore
+
         df_searched = searchItem(itemToRate)
-        print(df_searched)
-        print(len(df_searched))
-        print("--------------")
+        # print(df_searched)
+        # print(len(df_searched))
+        # print("--------------")
+
         if len(df_searched) != 0:
-            itemIdRated = df_searched.iloc[0, 0]
+            itemIdRated = df_searched.loc[df_searched.index[0],'itemId']
+
             session['itemIdRated'] = int(itemIdRated) # dataframe.iloc returns a numpy array, even just one element, must convert to int!
         else:
-            session['itemIdRated'] = -1 # not in inventory, not for item based recommendation
+            session['itemIdRated'] = [] # not in inventory, not for item based recommendation
         if ratingScore <= 3:
             session.pop('clipURL',None)
             session.pop('ratingScore', None)
-
         return redirect(url_for('index', _anchor = 'trailerPlayer'))
 
-    # if request.method == 'POST' and request.form['submit'] == 'watchFullMovie': # better to use anchor tag scroll down without refreshing
-    #     return redirect(url_for('index', _anchor='purchaseMovie'))
-
+    if request.method == 'POST' and request.form['submit'] == 'watchFullMovie': # better to use anchor tag scroll down without refreshing
+        session['watchFullMovie'] = True
+        return redirect(url_for('index', _anchor='purchaseMovie'))
 
 
     if request.method == 'POST' and request.form['submit']=='findPrice':
@@ -153,66 +195,70 @@ def index():
     ############################
     #  if there is a movie rated
     if 'ratingScore' in session :
-        if session['itemIdRated'] != -1: # rated item not in inventory
+        # -------------------------------------------
+        # first check if the item is selected from inventory or searched from outside
+        if session['itemIdRated']: # rated item is IN inventory
             itemIdRated = session['itemIdRated']
             ratingScore = session['ratingScore']
             ratingScore = int(ratingScore) # it was a string type by default
-            itemsRecommended = process.renderRecommendation(numberToServe=numberToServe, itemId=itemIdRated, ratingScore=ratingScore)
-            itemsRecommended = list(itemsRecommended.iloc[:, -1].values)
-        else:
+            # classical category was treated in the beginning
+            itemsRecommended['itemBased'], itemsImageURL['itemBased'] = flowControl.renderRecommendation(numberToServe=numberToServe, itemId=itemIdRated, ratingScore=ratingScore)
+            itemsRecommended['userBased'], itemsImageURL['userBased'] = flowControl.renderRecommendation(userId,numberToServe, userPreference=userPreference)  # output recommendations for unregistered user
+
+        else: # rated item is NOT in the inventory
             if 'username' in session:  # a registered user
                 userId = session['username']  # get userId from cookie
                 userId = int(userId)  # convert unicode type from user's input to python integer
-
-                itemsRecommended = process.renderRecommendation(userId, numberToServe)
-                itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten()
-            else:
+                userPreference = session['userPreference']
+                itemsRecommended['userBased'], itemsImageURL['userBased'] = flowControl.renderRecommendation(userId,numberToServe,userPreference=userPreference)  # output recommendations for unregistered user
+            else: # treated in the beginning
                 userId = -1  # -1 represent an unregistered user
-                itemsRecommended = process.renderRecommendation(userId, numberToServe)  # output recommendations for unregistered user
-                itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten()
-        # no matter user is registered or not, once item rated, recommend similar item
+                itemsRecommended['classical'], itemsImageURL['classical'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe, classical=1)  # output recommendations for unregistered user
+                itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe)  # output recommendations for unregistered user
+
+        # check if user signed in, if so then record the rating
         if 'username' in session: # user signed in
             userId = session['username']
             DatabaseQueries.putNewRating(userId, itemIdRated, ratingScore)
-            if 'priceList' in session and 'priceURLList' in session: # user have gone through the end of routine
-                # session.pop('itemToRate', None)
-                session.pop('clipURL', None)
-                session.pop('ratingScore', None)
-                session.pop('itemIdRated', None)
-                session.pop('itemToBuy', None)
-                session.pop('priceList', None)
-                session.pop('priceURLList', None)
-            return render_template('index.html', user=userId, itemsRecommended=itemsRecommended, clipURL=clipURL, itemToRate=itemToRate,
-                                   ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
-        else: # user not signed in
-            if 'priceList' in session and 'priceURLList' in session:  # user have gone through the end of routine
-                # session.pop('itemToRate', None)
-                session.pop('clipURL', None)
-                session.pop('ratingScore', None)
-                session.pop('itemIdRated', None)
-                session.pop('itemToBuy', None)
-                session.pop('priceList', None)
-                session.pop('priceURLList', None)
+        else:
+            userId = []
+        if 'watchFullMovie' in session and 'priceList' not in session:
+            watchFullMovie = session['watchFullMovie'] # depend on wether user want to watch full movie, show compare price session in html
+            return render_template('index.html', itemsRecommended=itemsRecommended, itemsImageURL=itemsImageURL, clipURL=clipURL, itemToRate=itemToRate,
+                                   ratingScore=ratingScore, watchFullMovie=watchFullMovie)
+        if 'priceList' in session: # user have gone through the end of routine
+            # session.pop('itemToRate', None)
+            # session.pop('clipURL', None)
+            # session.pop('ratingScore', None)
+            # session.pop('itemIdRated', None)
+            # session.pop('watchFullMovie', None)
+            session.pop('itemToBuy', None)
+            session.pop('priceList', None)
+            session.pop('priceURLList', None)
 
-            return render_template('index.html', itemsRecommended=itemsRecommended,clipURL=clipURL, itemToRate=itemToRate,
-                                   ratingScore=ratingScore, priceList=priceList, priceURLList=priceURLList)
+        return render_template('index.html', userId=userId, itemsRecommended=itemsRecommended, itemsImageURL=itemsImageURL, clipURL=clipURL, itemToRate=itemToRate,
+                               ratingScore=ratingScore, watchFullMovie=watchFullMovie, priceList=priceList, priceURLList=priceURLList)
 
-    # if NO movie was rated or rated movie is not in inventory,  no rating score then no purchase session
+    # if NO movie was rated or rated movie is NOT in inventory,  no rating score then no purchase session
     else:
         if 'username' in session: # a registered user
             userId = session['username'] # get userId from cookie
             userId = int(userId) # convert unicode type from user's input to python integer
 
-            itemsRecommended = process.renderRecommendation(userId, numberToServe)
-            itemsRecommended = itemsRecommended.iloc[:,-1].values.flatten()
-            return render_template('index.html', user = userId, itemsRecommended = itemsRecommended, clipURL=clipURL)
+            if 'userPreference' in session:
+                userPreference = session['userPreference']
+            else:
+                df_userFeatures = DatabaseQueries.getUserFeature()
+                df_userFeatures.index = df_userFeatures.index + 1
+                userPreference = list(df_userFeatures.loc[userId,'Action':])
+            itemsRecommended['userBased'], itemsImageURL['userBased'] = flowControl.renderRecommendation(userId, numberToServe, userPreference=userPreference)  # output recommendations for unregistered user
+            return render_template('index.html', userId = userId, itemsRecommended = itemsRecommended, itemsImageURL=itemsImageURL, clipURL=clipURL)
         else:
             userId = -1 # -1 represent an unregistered user
-            itemsRecommended = process.renderRecommendation(userId, numberToServe)  # output recommendations for unregistered user
-            itemsRecommended = itemsRecommended.iloc[:, -1].values.flatten() # flatten() converts 2D array into 1D, works as well as list()
+            itemsRecommended['classical'], itemsImageURL['classical'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe, classical=1)  # output recommendations for unregistered user
+            itemsRecommended['recentPopular'], itemsImageURL['recentPopular'] = flowControl.renderRecommendation(userId=-1, numberToServe=numberToServe)  # output recommendations for unregistered user
 
-
-    return render_template('index.html', itemsRecommended=itemsRecommended, clipURL=clipURL)
+    return render_template('index.html', itemsRecommended=itemsRecommended, itemsImageURL=itemsImageURL, clipURL=clipURL)
 
 
 
@@ -222,6 +268,7 @@ def login():
     session.pop('clipURL', None)
     session.pop('ratingScore', None)
     session.pop('itemIdRated', None)
+    session.pop('watchFullMovie', None)
     session.pop('itemToBuy', None)
     session.pop('priceList', None)
     session.pop('priceURLList', None)
@@ -241,6 +288,7 @@ def logout():
     session.pop('clipURL', None)
     session.pop('ratingScore', None)
     session.pop('itemIdRated', None)
+    session.pop('watchFullMovie', None)
     session.pop('itemToBuy', None)
     session.pop('priceList', None)
     session.pop('priceURLList', None)
@@ -256,6 +304,7 @@ def signup():
     session.pop('clipURL', None)
     session.pop('ratingScore', None)
     session.pop('itemIdRated', None)
+    session.pop('watchFullMovie', None)
     session.pop('itemToBuy', None)
     session.pop('priceList', None)
     session.pop('priceURLList', None)
@@ -264,14 +313,41 @@ def signup():
     if request.method == 'POST': #
         # get new user from input
         userId = numUsers + 1 # new user Id is assigned
-        age = request.form['age'] # get user's input from form with input name 'age'
-        age = int(age)
-        gender = str(request.form['gender'])
-        occupation = str(request.form['occupation'])
-        # add new user to user database
-        DatabaseQueries.putNewUser(userId, age, gender, occupation)
+        # age = request.form['age'] # get user's input from form with input name 'age'
+        # age = int(age)
+        # gender = str(request.form['gender'])
+        # occupation = str(request.form['occupation'])
+        # # add new user to user database
+        # DatabaseQueries.putNewUser(userId, age, gender, occupation)
+        preferences = np.zeros((19, 1))
+        preferences[0] = request.form.get('Action')
+        preferences[1] = request.form.get('Adventure')
+        preferences[2] = request.form.get('Animation')
+        preferences[3] = request.form.get('Children')
+        preferences[4] = request.form.get('Comedy')
+        preferences[5] = request.form.get('Crime')
+        preferences[6] = request.form.get('Documentary')
+        preferences[7] = request.form.get('Drama')
+        preferences[8] = request.form.get('Fantasy')
+        preferences[9] = request.form.get('FilmNoir')
+        preferences[10] = request.form.get('Horror')
+        preferences[11] = request.form.get('IMAX')
+        preferences[12] = request.form.get('Musical')
+        preferences[13] = request.form.get('Mystery')
+        preferences[14] = request.form.get('Romance')
+        preferences[15] = request.form.get('SciFi')
+        preferences[16] = request.form.get('Thriller')
+        preferences[17] = request.form.get('War')
+        preferences[18] = request.form.get('Western')
+        for i, value in enumerate(preferences):
+            if math.isnan(value):
+                preferences[i] = 0
+        preferences = list(preferences.flatten())
+        # print(preferences)
 
+        DatabaseQueries.putNewUser(userId, preferences)
         session['username'] = userId # create session dict for cookie, cuz REST is stateless i.e. memorize NOTHING
+        session['userPreference'] = preferences
         return redirect(url_for('index')) # redirect back to main page
 
     return render_template('signup.html', numUsers = numUsers)
@@ -280,7 +356,7 @@ def signup():
 @app.route('/rateMenu', methods=['GET', 'POST'])
 def rateMenu():
     df_inventory = DatabaseQueries.getInventory()
-    itemsMenu= df_inventory.iloc[:, -1].values.flatten()
+    itemsMenu= df_inventory.loc[:, 'itemName'].values.flatten()
     itemsMenu = list(itemsMenu) # list is to separate the array with comma
     itemsMenu = np.random.choice(itemsMenu,16)
     print(itemsMenu)
