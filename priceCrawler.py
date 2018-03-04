@@ -12,7 +12,7 @@ def getPriceAmazon(itemName):
     numScrape = 3
     tags = soup.find_all(attrs={'class':'sx-price sx-price-large'}, limit=numScrape)
     if not tags:
-        price = 'Price Not Found'
+        price = 'Click to See Price'
         return price
     # print("tag is", tags)
 
@@ -27,7 +27,7 @@ def getPriceAmazon(itemName):
     # print(price)
 
     if not price:
-        price = 'Price Not Found'
+        price = 'Click to See Price'
         return price
     else:
         price = "Watch From $" + str(price)
@@ -58,7 +58,7 @@ def getPriceYouTube(itemName):
     # print(len(priceTag))
 
     if not priceTag:
-        price = 'Price Not Found'
+        price = 'Click to See Price'
         return price
     else:
         priceTag = (priceTag[0])
@@ -71,7 +71,7 @@ def getPriceYouTube(itemName):
 
 
     if not price:
-        price = 'Price Not Found'
+        price = 'Click to See Price'
         return price
     else:
         price = "Watch From $" + str(price)
@@ -86,7 +86,7 @@ def getURLYouTube(itemName):
 
 
 def getPriceITunes(itemName):
-    price = "Not Found" # as backup
+    price = "Click to See Price" # as backup
 
     queryList = re.findall('(.*)[1][9][0-9][0-9]|(.*)[2][0][0-9][0-9]', itemName) # remove year and just use name
     if queryList:
@@ -118,7 +118,7 @@ def getPriceITunes(itemName):
     # print(type(parsedJSON))
 
     if not parsedJSON['results']:
-        price = "Not Found"
+        price = "Click to See Price"
         return price, "www.google.com"
 
 
@@ -133,7 +133,7 @@ def getPriceITunes(itemName):
         price = parsedJSON['results'][0]['trackHdPrice']
 
     else:
-        price = "Not Found"
+        price = "Click to See Price"
         return price, "www.google.com"
 
     price = "Watch From $" + str(price)
