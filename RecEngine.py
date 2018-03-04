@@ -13,13 +13,13 @@ class RecEngine(object):
         self.numRatingsPerUser = numRatingsPerUser
         # to pre-compute the most popular items, because this recommendation is independent from users
         self._cacheMostPopular()  # most popular only computed once when initializing RecEngine and be reused for a day
-        # self._cacheRecentPopular()
+        self._cacheRecentPopular()
         self.log = logging.getLogger(__name__)
 
     # general reset & cache
     def resetCache(self):
         self._cacheMostPopular()
-        # self._cacheRecentPopular()
+        self._cacheRecentPopular()
 
     def _cacheMostPopular(self):
         # for unregistered users, compute once the recommendation of most popular items
@@ -36,9 +36,8 @@ class RecEngine(object):
         recommendations = {}
         # for unregistered users, popular item are always computed and ready to display
         if classical == None: # recent popular
-            # recommendations["recentPopular"] = self.recentPopularList
-            # self.log.info("Recommending using Recent Popular items")
-            pass
+            recommendations["recentPopular"] = self.recentPopularList
+            self.log.info("Recommending using Recent Popular items")
         else:
             recommendations["mostPopular"] = self.mostPopularList
             self.log.info("Recommending using Most Popular items")

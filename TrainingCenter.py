@@ -30,10 +30,10 @@ class TrainingCenter():
         self.pushModel(model, ModelStore.MP_MODEL_KEY)
         self.log.info("Most Popular Model training finished")
 
-        # model = self.modelStore.getModel(ModelStore.RP_MODEL_KEY)
-        # model.train()
-        # self.pushModel(model, ModelStore.RP_MODEL_KEY)
-        # self.log.info("Recent Popular Model training finished")
+        model = self.modelStore.getModel(ModelStore.RP_MODEL_KEY)
+        model.train()
+        self.pushModel(model, ModelStore.RP_MODEL_KEY)
+        self.log.info("Recent Popular Model training finished")
 
 
         # model = self.modelStore.getModel(ModelStore.KNN_MODEL_KEY)
