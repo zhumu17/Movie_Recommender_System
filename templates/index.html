@@ -216,7 +216,7 @@
 {% if ratingScore %}
     {% if ratingScore >=4 %}
         {% if watchFullMovie %}
-            <section  id="purchaseMovie" style="margin-top: -80px; margin-bottom:200px;">
+            <section  id="purchaseMovie" style="margin-top: -80px; margin-bottom:95px;">
                 <h2  class="text-center">Let Us Find The Full Movie For You </h2>
                 <h2  class="text-center" style="font-size:25px;">FOR THE BEST PRICE FROM MAJOR PROVIDERS</h2>
                 <div class="text-center" >
@@ -248,7 +248,7 @@
 
                         </form>
                          {% if priceList and priceURLList%}
-                            <div class="row" style="margin-bottom:50px;">
+                            <div class="row" style="margin-bottom:100px;">
                                 <div class="col-lg-4 co-md-4">
                                     <a href="{{priceURLList[0]}}" target="_blank">
                                            <button type="submit" name="submit" class="btn btn-danger btn-lg" > {{priceList[0]}}</button>
@@ -272,7 +272,15 @@
 
                 </div>
 
+                <div class="text-center">
+                 {% if priceList and priceURLList%}
+                    <a href="#" style="margin-top: 700px; padding-top:200px;">
+                        Try Another Movie
+                    </a>
+                    {% endif %}
+                </div>
             </section>
+
         {% endif %}
     {% endif %}
  {% endif %}
