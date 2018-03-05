@@ -222,7 +222,12 @@ def index():
             if 'username' in session:  # a registered user
                 userId = session['username']  # get userId from cookie
                 userId = int(userId)  # convert unicode type from user's input to python integer
-                userPreference = session['userPreference']
+                if 'userPreference' in session:
+                    userPreference = session['userPreference']
+                else:
+                    df_userFeatures = DatabaseQueries.getUserFeature()
+                    df_userFeatures.index = df_userFeatures.index + 1
+                    userPreference = list(df_userFeatures.loc[userId, 'Action':])
                 itemsRecommended['userBased'], itemsImageURL['userBased'] = flowControl.renderRecommendation(userId,numberToServe,userPreference=userPreference)  # output recommendations for unregistered user
             else: # treated in the beginning
                 userId = -1  # -1 represent an unregistered user
