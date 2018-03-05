@@ -237,7 +237,8 @@ def index():
         # check if user signed in, if so then record the rating
         if 'username' in session: # user signed in
             userId = session['username']
-            DatabaseQueries.putNewRating(userId, itemIdRated, ratingScore)
+            if itemIdRated:
+                DatabaseQueries.putNewRating(userId, itemIdRated, ratingScore)
         else:
             userId = []
         if 'watchFullMovie' in session and 'priceList' not in session:

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07ecc1b9-3b0d-448f-b656-e07e917cc27f" name="Default" comment="updated">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database.sqlite" afterPath="$PROJECT_DIR$/database.sqlite" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MainServer.py" afterPath="$PROJECT_DIR$/MainServer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -21,8 +20,8 @@
       <file leaf-file-name="MainServer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MainServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="455" column="25" lean-forward="false" selection-start-line="455" selection-start-column="25" selection-end-line="455" selection-end-column="25" />
+            <state relative-caret-position="376">
+              <caret line="456" column="25" lean-forward="false" selection-start-line="456" selection-start-column="25" selection-end-line="456" selection-end-column="25" />
               <folding>
                 <element signature="e#236#328#0" expanded="true" />
               </folding>
@@ -101,9 +100,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>brainstorm</find>
-      <find>jackass number</find>
-      <find>lord of the rings</find>
       <find>the lord</find>
       <find>lord</find>
       <find>itemToBuy</find>
@@ -131,6 +127,9 @@
       <find>searchclip</find>
       <find>asdf</find>
       <find>LOOO</find>
+      <find>putNew</find>
+      <find>putNewRating</find>
+      <find>itemIdRated</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1093,8 +1092,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="455" column="25" lean-forward="false" selection-start-line="455" selection-start-column="25" selection-end-line="455" selection-end-column="25" />
+        <state relative-caret-position="376">
+          <caret line="456" column="25" lean-forward="false" selection-start-line="456" selection-start-column="25" selection-end-line="456" selection-end-column="25" />
           <folding>
             <element signature="e#236#328#0" expanded="true" />
           </folding>
