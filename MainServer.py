@@ -203,8 +203,11 @@ def index():
             ratingScore = int(ratingScore) # it was a string type by default
             # classical category was treated in the beginning
             itemsRecommended['itemBased'], itemsImageURL['itemBased'] = flowControl.renderRecommendation(numberToServe=numberToServe, itemId=itemIdRated, ratingScore=ratingScore)
+            if 'username' in session:  # a registered user
+                userId = session['username']  # get userId from cookie
+                userId = int(userId)  # convert unicode type from user's input to python integer
+                userPreference = session['userPreference']
             itemsRecommended['userBased'], itemsImageURL['userBased'] = flowControl.renderRecommendation(userId,numberToServe, userPreference=userPreference)  # output recommendations for unregistered user
-
         else: # rated item is NOT in the inventory
             if 'username' in session:  # a registered user
                 userId = session['username']  # get userId from cookie
