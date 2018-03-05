@@ -125,6 +125,8 @@ def index():
         clipURL = videoCrawler.getVideoURL(clipId)
         session['itemToRate'] = clipNameInput
         session['clipURL'] = clipURL
+        if clipId == "iG_KZxLHozI":
+            session.pop('clipURL', None)
         session.pop('ratingScore', None)
         session.pop('watchFullMovie', None)
         return redirect(url_for('index', _anchor='trailerPlayer'))
@@ -137,6 +139,8 @@ def index():
         print("clip Name Input URL is : ", clipURL)
         session['itemToRate'] = clipNameInput
         session['clipURL'] = clipURL
+        if clipId == "iG_KZxLHozI":
+            session.pop('clipURL', None)
         session.pop('ratingScore', None)
         session.pop('watchFullMovie', None)
 

@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="07ecc1b9-3b0d-448f-b656-e07e917cc27f" name="Default" comment="updated">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database.sqlite" afterPath="$PROJECT_DIR$/database.sqlite" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/priceCrawler.py" afterPath="$PROJECT_DIR$/priceCrawler.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/videoCrawler.py" afterPath="$PROJECT_DIR$/videoCrawler.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MainServer.py" afterPath="$PROJECT_DIR$/MainServer.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,11 +19,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainServer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainServer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MainServer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="429" column="39" lean-forward="false" selection-start-line="429" selection-start-column="39" selection-end-line="429" selection-end-column="39" />
+            <state relative-caret-position="196">
+              <caret line="441" column="26" lean-forward="true" selection-start-line="441" selection-start-column="26" selection-end-line="441" selection-end-column="26" />
               <folding>
                 <element signature="e#236#328#0" expanded="true" />
               </folding>
@@ -31,21 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="videoCrawler.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/videoCrawler.py">
+      <file leaf-file-name="CFmodel.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Models/CFmodel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="410">
-              <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="priceCrawler.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/priceCrawler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+            <state relative-caret-position="204">
+              <caret line="48" column="86" lean-forward="true" selection-start-line="48" selection-start-column="86" selection-end-line="48" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -54,8 +44,28 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="446">
-              <caret line="89" column="77" lean-forward="false" selection-start-line="89" selection-start-column="77" selection-end-line="89" selection-end-column="77" />
+            <state relative-caret-position="141">
+              <caret line="24" column="36" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="36" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="videoCrawler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/videoCrawler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="223">
+              <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="priceCrawler.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/priceCrawler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-423">
+              <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -66,6 +76,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-185">
               <caret line="15" column="27" lean-forward="false" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ranker.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Ranker.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -82,9 +102,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>text-small</find>
-      <find>text-left</find>
-      <find>please</find>
       <find>brainstorm</find>
       <find>jackass number</find>
       <find>lord of the rings</find>
@@ -96,7 +113,6 @@
       <find>purchase</find>
       <find>flavour</find>
       <find>putNewUser</find>
-      <find>asdf</find>
       <find>user</find>
       <find>assert</find>
       <find>Fla</find>
@@ -112,6 +128,10 @@
       <find>LOOOOOOO</find>
       <find>userPreference</find>
       <find>Click to see price</find>
+      <find>clipURL</find>
+      <find>searchclip</find>
+      <find>asdf</find>
+      <find>LOOO</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -154,15 +174,15 @@
         <option value="$PROJECT_DIR$/static/css/styles1.css" />
         <option value="$PROJECT_DIR$/DataPreprocessing.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/Models/CFmodel.py" />
         <option value="$PROJECT_DIR$/FlowControl.py" />
         <option value="$PROJECT_DIR$/Ranker.py" />
         <option value="$PROJECT_DIR$/TrainingCenter.py" />
         <option value="$PROJECT_DIR$/RecEngine.py" />
         <option value="$PROJECT_DIR$/Models/RecentPopularModel.py" />
         <option value="$PROJECT_DIR$/videoCrawler.py" />
-        <option value="$PROJECT_DIR$/MainServer.py" />
         <option value="$PROJECT_DIR$/priceCrawler.py" />
+        <option value="$PROJECT_DIR$/Models/CFmodel.py" />
+        <option value="$PROJECT_DIR$/MainServer.py" />
       </list>
     </option>
   </component>
@@ -970,29 +990,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Models/CFmodel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="47" column="46" lean-forward="false" selection-start-line="47" selection-start-column="46" selection-end-line="47" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FlowControl.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="34" column="0" lean-forward="false" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding>
             <element signature="e#61#75#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Ranker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="693">
-          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="e#44#58#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1033,18 +1036,42 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="89" column="77" lean-forward="false" selection-start-line="89" selection-start-column="77" selection-end-line="89" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/500.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
           <caret line="34" column="50" lean-forward="false" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/priceCrawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-423">
+          <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Ranker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="141">
+          <caret line="24" column="36" lean-forward="false" selection-start-line="24" selection-start-column="26" selection-end-line="24" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/videoCrawler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="23" selection-end-line="40" selection-end-column="35" />
           <folding />
         </state>
       </provider>
@@ -1057,29 +1084,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Models/CFmodel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="48" column="86" lean-forward="true" selection-start-line="48" selection-start-column="86" selection-end-line="48" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/MainServer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="429" column="39" lean-forward="false" selection-start-line="429" selection-start-column="39" selection-end-line="429" selection-end-column="39" />
+        <state relative-caret-position="196">
+          <caret line="441" column="26" lean-forward="true" selection-start-line="441" selection-start-column="26" selection-end-line="441" selection-end-column="26" />
           <folding>
             <element signature="e#236#328#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/videoCrawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="410">
-          <caret line="42" column="0" lean-forward="true" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/priceCrawler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="115" column="0" lean-forward="true" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
