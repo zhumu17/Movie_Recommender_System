@@ -23,8 +23,11 @@
             <a href="/"><h1>MovieUniverse</h1></a>
           </div>
             <form id="formSearchClip" action="" method="post" class="form-style">
-                 <input type="text" name = "clipName" class="user-input-clip" >
-                 <button type="submit" name="submit" value="searchClip" class="btn btn-success btn-sm" >Search Trailer</button>
+                 <input type="text" name = "clipName" class="user-input-clip"
+                        onclick="if(this.value == 'Search any movie (year)...') { this.value = ''; }"
+                        value="Search any movie (year)..." style="color:grey; height:34px;">
+                 <button type="submit" name="submit" value="searchClip" class="btn btn-success btn-md glyphicon glyphicon-search"
+                         style="margin-top:-8px;" ></button>
              </form>
         </div>
 
