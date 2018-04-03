@@ -5,7 +5,7 @@ import re
 def getVideoId(itemName):
 
     query = itemName
-    url = "https://www.youtube.com/results?search_query=" + query + " trailer"
+    url = "https://www.youtube.com/results?search_query=" + query + " movie trailer"
 
     resp = requests.get(url)
     html_data = resp.text

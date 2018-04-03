@@ -35,11 +35,11 @@ class Ranker(object):
 
         if "mostPopular" in recommendations:  # most popular should always exist
             # if there is no personalized recs, the remaining should be filled by most popular
-            results.extend(recommendations["mostPopular"][:numberToServe*3])
+            results.extend(recommendations["mostPopular"])
 
         if "recentPopular" in recommendations:  # most popular should always exist
             # if there is no personalized recs, the remaining should be filled by most popular
-            results.extend(recommendations["recentPopular"][:numberToServe*3])
+            results.extend(recommendations["recentPopular"])
 
 
 
@@ -55,11 +55,11 @@ class Ranker(object):
         # results = list(set(results) - ratedItems)[:numberToServe]
         # except ValueError:
         #     results = np.random.choice(results, numberToServe, replace=False)
-        results = list(set(results[:numberToServe*3])) # remove duplcates among different recommendation cases
+        results = list(set(results[:])) # remove duplicates among different recommendation cases
         # print("results from ranker", results)
         # print(len(results))
         # print(numberToServe)
-        results = np.random.choice(results, numberToServe*3, replace=False)
+        results = np.random.choice(results, numberToServe*5, replace=False)
         return list(results)
 
 

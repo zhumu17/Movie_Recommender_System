@@ -33,15 +33,14 @@
           </div>
             <form id="formSearchClip" action="" method="post" class="form-style">
                  <input type="text" name = "clipName" class="user-input-clip"
-                        onclick="if(this.value == 'Search any movie (year)...') { this.value = ''; }"
-                        value="Search any movie (year)..." style="color:grey; height:34px;">
+                        onclick="if(this.value == 'Search a movie (year)...') { this.value = ''; }"
+                        value="Search a movie (year)..." style="color:grey; height:34px;">
                  <button type="submit" name="submit" value="searchClip" class="btn btn-success btn-md glyphicon glyphicon-search"
                          style="margin-top:-8px;" ></button>
              </form>
         </div>
 
         <div>
-
 
            <ul id="nav-list" class="nav navbar-nav navbar-right ">
                {% if userId%}
@@ -83,11 +82,11 @@
         <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR RECENT RATING: <span class = "text-small" onclick="myFunction()"><a href="#itemBasedGallery"> (Refresh to See More...)</a></span>
 
             {% for i in range(12) %}
-          <div class="col-md-2 col-sm-3 col-xs-12 ">
+          <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['itemBased'][i]}}">
                     <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 175px; height:240px; background: url('{{itemsImageURL['itemBased'][i]}}') no-repeat;
+                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['itemBased'][i]}}') no-repeat;
                             background-size: cover; font-size: 3em; "></button>
               </form>
               <span class ="text-left text-small text-movie-title-small " style ="margin-top: -5px;"> {{itemsRecommended['itemBased'][i]}}</span>
@@ -102,11 +101,11 @@
         <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR TASTES:
             <span class = "text-small" onclick="myFunction()"><a href="#userBasedGallery"> (Refresh to See More...)</a></span>
         {% for i in range(12) %}
-          <div class="col-md-2 col-sm-3 col-xs-12 ">
+          <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['userBased'][i]}}">
                     <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 175px; height:240px; background: url('{{itemsImageURL['userBased'][i]}}') no-repeat;
+                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['userBased'][i]}}') no-repeat;
                             background-size: cover; font-size: 3em; "></button>
               </form>
               <span class ="text-left text-small text-movie-title-small " style ="margin-top: -5px;"> {{itemsRecommended['userBased'][i]}}</span>
@@ -124,11 +123,11 @@
          <p class ="text-left" style="margin-left:15px;"> MOST POPULAR OVER THE PAST DECADE:
              <span class = "text-small" onclick="myFunction()"><a href="#recentPopularGallery"> (Refresh to See More...)</a></span>
         {% for i in range(12) %}
-          <div class="col-md-2 col-sm-3 col-xs-12 ">
+          <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['recentPopular'][i]}}">
                     <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 175px; height:240px; background: url('{{itemsImageURL['recentPopular'][i]}}') no-repeat;
+                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['recentPopular'][i]}}') no-repeat;
                             background-size: cover; font-size: 3em; "></button>
               </form>
              <span class ="text-left text-small text-movie-title-small " style ="margin-top: -5px;"> {{itemsRecommended['recentPopular'][i]}}</span>
@@ -141,11 +140,11 @@
      <section class="row"  id="classicalGallery">
          <p class ="text-left" style="margin-left:15px;"> MOST CLASSICAL EVER: <span class = "text-small" onclick="myFunction()"><a href="#classicalGallery"> (Refresh to See More...)</a></span>
         {% for i in range(12) %}
-          <div class="col-md-2 col-sm-3 col-xs-12 ">
+          <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['classical'][i]}}">
                     <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 175px; height:240px; background: url('{{itemsImageURL['classical'][i]}}') no-repeat;
+                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['classical'][i]}}') no-repeat;
                             background-size: cover; font-size: 3em; "></button>
               </form>
               <span class ="text-left text-small text-movie-title-small" style ="margin-top: -5px;"> {{itemsRecommended['classical'][i]}}</span>
@@ -167,7 +166,7 @@
                   <iframe width="600" height="400" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
               </div>
               <div class="text-center visible-xs">
-                  <iframe width="200" height="100" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
+                  <iframe width=100% height="200" src={{clipURL}} frameborder="0" allowfullscreen></iframe>
               </div>
 
                 {% if ratingScore %}
@@ -176,10 +175,13 @@
                             <div id="here">
 
                                 <form method="post" class="form-style">
-                                    <button name="submit" type="submit" value="watchFullMovie" class="btn btn-success btn-lg " > Watch Full Movie Online</button>
+                                    <button name="submit" type="submit" value="watchFullMovie" class="btn btn-success btn-lg"
+                                            style="margin:20px; background-color: #008000;">
+                                        Watch This Full Movie Now </button>
                                 </form>
                                 <a href="#">
-                                    <button class="btn btn-danger btn-lg"> Maybe Later</button>
+                                    <button class="btn btn-warning btn-lg" style="margin:20px; background-color: #FF8C00;">
+                                        Maybe Later...  </button>
                                 </a>
                             </div>
                         </div>
@@ -187,7 +189,7 @@
                     {% endif %}
 
                 {% else %}
-                    <form id="form1"method="post" >
+                    <form id="form1" method="post" style="margin-top:80px;">
                         <fieldset class="rating centered" >
                             <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="Love it!">5 stars</label>
                             <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="Like it">4 stars</label>
@@ -195,6 +197,9 @@
                             <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="Dislike it">2 stars</label>
                             <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="Hate it!">1 star</label>
                         </fieldset>
+
+
+
                         <div class="button-rate-it" style="margin-top:-30px;">
                              <button name="submit" type="submit" class="btn btn-warning"
                                      value="rateScore" style="font-weight:bold; color:#191970; background-color: #FF8C00;"> Submit Rating</button>
@@ -214,7 +219,11 @@
                   <!--</iframe>-->
                   <iframe width="700" height="450" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>
               </div>
-
+              <div class="text-center visible-xs">
+                  <!--<iframe width="850" height="450" src="https://www.youtube-nocookie.com/embed/KVXwYuf8kFk?rel=0&amp;controls=0&amp;showinfo=0&amp;start=38&amp;end=237&amp;autoplay=1&amp;mute=1&amp;" frameborder="0" >-->
+                  <!--</iframe>-->
+                  <iframe width=100% height="200" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>
+              </div>
                <div class="button-rate-it" >
                    <a href="#">
                        <button class="btn btn-danger btn-lg" > Select a Trailer to Play</button>
@@ -229,66 +238,75 @@
     {% if ratingScore >=4 %}
         {% if watchFullMovie %}
             <section  id="purchaseMovie" style="margin-top: -80px; margin-bottom:95px;">
-                <h2  class="text-center">Let Us Find The Full Movie For You </h2>
-                <h2  class="text-center" style="font-size:25px;">FOR THE BEST PRICE FROM MAJOR PROVIDERS</h2>
+                <h2  class="text-center">Let Us Find It For You </h2>
+                <h2  class="text-center" style="font-size:20px;">FOR THE BEST PRICE FROM MAJOR PROVIDERS</h2>
                 <div class="text-center" >
                     <!--<p class="text-center-purchaseMovie">Let Us Find The Best Price Available Online For You</p>-->
-                    <div>
-
                         <form  action="" method="post">
                              <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
                             <span class="button" >
                                     <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg"
-                                            style="font-weight: 200; margin-top:30px;"> GO FOR IT!</button>
+                                            style="font-weight: 200; margin-top:30px; background-color: #008000;"> GO FOR IT!</button>
                             </span>
                             <div class="text-center text-small" style="margin-top:10px;">Searching may take up to 5 seconds...</div>
-                            <div class="row">
-
-                                <div class="col-lg-4 co-md-4">
-                                      <img width="200" height="200" src="../static/images/LogoAmazon.jpg" alt="image not found">
-                                </div>
-                                <div class="col-lg-4 co-md-4" >
-                                    <br>
-                                     <img width="200" height="120" src="../static/images/LogoYouTube.jpg" alt="image not found">
-                                </div>
-                                <div class="col-lg-4 co-md-4" >
-                                    <br>
-                                      <img width="120" height="120" src="../static/images/LogoITunes.jpg" alt="image not found">
-                                </div>
-                            </div>
-
 
                         </form>
                          {% if priceList and priceURLList%}
                             <div class="row" style="margin-bottom:100px;">
-                                <div class="col-lg-4 co-md-4">
+                                <div class="col-lg-4 co-md-4 co-sm-4 co-xs-12">
+                                     <img width="140" height="120" src="../static/images/LogoAmazon.jpg" alt="image not found">
+                                    <br>
                                     <a href="{{priceURLList[0]}}" target="_blank">
-                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > {{priceList[0]}}</button>
+                                        <button type="submit" name="submit" class="btn btn-danger btn-lg" style="margin-bottom:25px; background-color: 	#A52A2A;"> {{priceList[0]}}</button>
                                     </a>
                                 </div>
-                                <div class="col-lg-4 co-md-4">
+                                <div class="col-lg-4 co-md-4 co-sm-4 co-xs-12">
+                                    <img width="180" height="120" src="../static/images/LogoYouTube.jpg" alt="image not found">
+                                    <br>
                                     <a href="{{priceURLList[1]}}" target="_blank">
-                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > {{priceList[1]}}</button>
+                                        <button type="submit" name="submit" class="btn btn-danger btn-lg" style="margin-bottom:25px; background-color: 	#A52A2A;"> {{priceList[1]}}</button>
                                     </a>
                                 </div>
-                                <div class="col-lg-4 co-md-4">
+                                <div class="col-lg-4 co-md-4 co-sm-4 co-xs-12">
+                                     <img width="120" height="120" src="../static/images/LogoITunes.jpg" alt="image not found">
+                                    <br>
                                     <a href="{{priceURLList[2]}}" target="_blank">
-                                           <button type="submit" name="submit" class="btn btn-danger btn-lg" > {{priceList[2]}}</button>
+                                        <button type="submit" name="submit" class="btn btn-danger btn-lg" style="margin-bottom:25px; background-color: 	#A52A2A;"> {{priceList[2]}}</button>
                                     </a>
                                 </div>
                             </div>
+                        {% else %}
+                            <div class="row">
 
+                                <div class="col-lg-4 co-md-4 co-sm-4 co-xs-12">
+                                      <img width="190" height="170" src="../static/images/LogoAmazon.jpg" alt="image not found">
+                                </div>
+                                <div class="col-lg-4 co-md-4 co-sm-4 co-xs-12" >
+                                    <br>
+                                     <img width="200" height="120" src="../static/images/LogoYouTube.jpg" alt="image not found">
+                                </div>
+                                <div class="col-lg-4 co-md-4 co-sm-4 co-xs-12" >
+                                    <br>
+                                      <img width="120" height="120" src="../static/images/LogoITunes.jpg" alt="image not found">
+                                </div>
+                            </div>
                         {% endif %}
-
-                    </div>
-
                 </div>
 
                 <div class="text-center">
                  {% if priceList and priceURLList%}
-                    <a href="#" style="margin-top: 700px; padding-top:200px;">
-                        Try Another Movie
+
+                    <div style="margin-top:50px;">
+                    <p class ="text-center" style="color:gold"> Interested In Seeing More Personalized Recommendations?
+                    </div>
+                    <a href="/signup">
+                        <button class="btn btn-success btn-lg" style="margin:20px; background-color: #008000;">
+                                        SIGN UP FOR FREE</button>
                     </a>
+                    <div>
+                        <a href="#"> <p> Not For Now...</p></a>
+                    </div>
+
                     {% endif %}
                 </div>
             </section>
@@ -300,15 +318,17 @@
 
 </div> <!-- End of .white-box -->
 
-  </div><!-- End of #main-content -->
+</div><!-- End of #main-content -->
 
 
   <footer class="panel-footer">
     <div class="container">
       <div class="text-center text-small" style="margin-bottom:0px;">Developed by: Mu Zhu | zhumu17@gmail.com |
-          <a href="https://www.linkedin.com/in/muzhu"> LinkedIn </a> |
+          <a href="https://www.linkedin.com/in/muzhu" target="_blank"> LinkedIn </a> |
+<!--
             <a href="https://github.com/zhumu17/Movie_Recommender_System">  Github </a> |</div>
-      <div class="text-center text-small" style="margin-bottom:0px;"> Original Movie Dataset provided by: grouplens.org </div>
+-->
+      <div class="text-center text-small" style="margin-bottom:0px;"> Copyrights Reserved 2018 </div>
     </div>
   </footer>
 
