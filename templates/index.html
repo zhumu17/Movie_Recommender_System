@@ -127,7 +127,7 @@
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['recentPopular'][i]}}">
                     <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['recentPopular'][i]}}') no-repeat;
+                            style=" margin-bottom: 10px; width: 165px; height:240px; background: url('{{itemsImageURL['recentPopular'][i]}}') no-repeat;
                             background-size: cover; font-size: 3em; "></button>
               </form>
              <span class ="text-left text-small text-movie-title-small " style ="margin-top: -5px;"> {{itemsRecommended['recentPopular'][i]}}</span>
@@ -180,7 +180,7 @@
                                         Watch This Full Movie Now </button>
                                 </form>
                                 <a href="#">
-                                    <button class="btn btn-warning btn-lg" style="margin:20px; background-color: #FF8C00;">
+                                    <button class="btn btn-warning btn-lg" style="margin:20px; background-color: #A0522D;">
                                         Maybe Later...  </button>
                                 </a>
                             </div>
@@ -201,8 +201,8 @@
 
 
                         <div class="button-rate-it" style="margin-top:-30px;">
-                             <button name="submit" type="submit" class="btn btn-warning"
-                                     value="rateScore" style="font-weight:bold; color:#191970; background-color: #FF8C00;"> Submit Rating</button>
+                             <button name="submit" type="submit" class="btn btn-warning btn-lg"
+                                     value="rateScore" style="font-weight:bold; color:#000000; background-color: #FF8C00;"> Submit Rating</button>
                         </div>
 
                     </form>
@@ -226,7 +226,7 @@
               </div>
                <div class="button-rate-it" >
                    <a href="#">
-                       <button class="btn btn-danger btn-lg" > Select a Trailer to Play</button>
+                       <button class="btn btn-danger btn-lg" style="background-color:#A52A2A;" > Select a Movie To Play Trailer</button>
                    </a>
                </div>
           {% endif %}
@@ -293,7 +293,7 @@
                         {% endif %}
                 </div>
 
-                <div class="text-center">
+                <div class="text-center" style="margin-top:220px;">
                  {% if priceList and priceURLList%}
 
                     <div style="margin-top:50px;">
