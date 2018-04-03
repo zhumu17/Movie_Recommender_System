@@ -409,7 +409,7 @@ span.glyphicon-link {
 .centered {
   position: center;
   top: 750px;
-  margin-right:-47%;
+  margin-right:-44%;
   margin-top:4%;
   /* bring your own prefixes */
   transform: translate(-38.3%, -60%);
