@@ -9,13 +9,21 @@ def getPriceAmazon(itemName):
     resp = requests.get(url)
     html_data = resp.text
     soup = BeautifulSoup(html_data, 'html.parser')
-    numScrape = 3
+    numScrape = 10
     tags = soup.find_all(attrs={'class':'sx-price sx-price-large'}, limit=numScrape)
-    if not tags:
-        price = 'Click to See Prices'
-        return price
     # print("tag is", tags)
+    if not tags: # one more chance because sometime BS4 can't find anything for the first time
+        url = "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Dinstant-video&field-keywords=" + query
+        resp = requests.get(url)
+        html_data = resp.text
+        soup = BeautifulSoup(html_data, 'html.parser')
+        numScrape = 10
+        tags = soup.find_all(attrs={'class': 'sx-price sx-price-large'}, limit=numScrape)
+        if not tags:
+            price = 'Click to See Prices'
+            return price
 
+    # print(tags)
 
     priceTag = str(tags[0])
     # print("priceTag is :", priceTag)
@@ -75,7 +83,7 @@ def getPriceYouTube(itemName):
         return price
     else:
         price = "Watch From $" + str(price)
-    print(price)
+    # print(price)
 
     return price
 
@@ -114,7 +122,7 @@ def getPriceITunes(itemName):
 
     parsedJSON = json.loads(JSON)
 
-    print(parsedJSON)
+    # print(parsedJSON)
     # print(type(parsedJSON))
 
     if not parsedJSON['results']:
@@ -123,7 +131,7 @@ def getPriceITunes(itemName):
 
 
 
-    print(parsedJSON['results'][0])
+    # print(parsedJSON['results'][0])
     # print("number of elements in list:", len(parsedJSON['results']))
 
     if 'trackPrice' in parsedJSON['results'][0]:
@@ -154,9 +162,9 @@ def getURLITunes(itemName, itemIdITunes): # NOT USED be cause getPriceITunes can
 
 
 if __name__=="__main__":
-    # getPriceAmazon("return of the jedi 1983")
+    getPriceAmazon("Prince Of Persia: The Sands Of Time 2010")
     # getPriceYouTube("return of the jedi 1983")
     # getPriceITunes("the godfarther (1972)")
-    getPriceITunes("the last jedi")
+    # getPriceITunes("the last jedi")
 
     #976965981 for testing itemId_iTunes

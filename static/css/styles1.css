@@ -4,7 +4,7 @@
 /** HEADER **/
 #header-nav {
   background-color: #000000; /* adjust */
-  opacity: .9;
+  opacity: .8;
   border-radius: 0;
   border: 0;
 }
@@ -180,10 +180,18 @@ h2{
 }
 @media (max-width:450px){
 .poster{
+    width:174px;
+    height:247px;
+    }
+}
+@media (max-width:400px){
+.poster{
     width:155px;
     height:225px;
     }
 }
+
+
 
 
 
@@ -204,7 +212,7 @@ h2{
 
 .text-left{
     color: #FFD700;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-left: 0px;
     margin-bottom: 10px;
     font-size: 15px;
@@ -254,6 +262,31 @@ span.glyphicon-link {
     margin-bottom: 60px;
     font-size: 20px;
 }
+
+
+.h_iframe iframe {
+    width:100%;
+    height:100%;
+}
+.h_iframe {
+    height: 100%;
+    width:100%;
+}
+
+.container2 {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+}
+.video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 
 /* END  SECOND SECTION */
 .user-input {
@@ -419,11 +452,41 @@ span.glyphicon-link {
   transform: translate(-38.3%, -60%);
 */
 }
+@media (max-width:750px){
+.centered {
+  position: center;
+  top: 750px;
+  margin-right:-11.5%;
+  margin-top:4%;
+  /* bring your own prefixes */
+  transform: translate(-38.3%, -60%);
+}
+}
+@media (max-width:700px){
+.centered {
+  position: center;
+  top: 750px;
+  margin-right:-15%;
+  margin-top:4%;
+  /* bring your own prefixes */
+  transform: translate(-38.3%, -60%);
+}
+}
 @media (max-width:450px){
 .centered {
   position: center;
   top: 750px;
-  margin-right:-44%;
+  margin-right:-37%;
+  margin-top:4%;
+  /* bring your own prefixes */
+  transform: translate(-38.3%, -60%);
+}
+}
+@media (max-width:400px){
+.centered {
+  position: center;
+  top: 750px;
+  margin-right:-43%;
   margin-top:4%;
   /* bring your own prefixes */
   transform: translate(-38.3%, -60%);
@@ -440,7 +503,7 @@ span.glyphicon-link {
     border: none;
     color: blue;
     text-align: center;
-    margin-bottom: 200px;
+    margin-bottom: 150px;
 }
 
 .boxes {
