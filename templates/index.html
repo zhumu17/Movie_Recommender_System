@@ -77,7 +77,6 @@
     <span class = "text-left" style="margin-bottom:-5 px;"> HI, USER #{{userId}} --</span>
     {% endif %}
     {% if itemsRecommended['itemBased'] %}
-
     <section class="row"  id="itemBasedGallery">
         <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR RECENT RATING: <span class = "text-small" onclick="myFunction()"><a href="#itemBasedGallery"> (Refresh to See More...)</a></span>
 
@@ -85,9 +84,9 @@
           <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['itemBased'][i]}}">
-                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['itemBased'][i]}}') no-repeat;
-                            background-size: cover; font-size: 3em; "></button>
+                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image poster"
+                            style="background: url('{{itemsImageURL['itemBased'][i]}}') no-repeat; background-size: cover; font-size:3em;">
+                    </button>
               </form>
               <span class ="text-left text-small text-movie-title-small " style ="margin-top: -5px;"> {{itemsRecommended['itemBased'][i]}}</span>
           </div>
@@ -104,9 +103,9 @@
           <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['userBased'][i]}}">
-                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['userBased'][i]}}') no-repeat;
-                            background-size: cover; font-size: 3em; "></button>
+                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image poster"
+                            style="background: url('{{itemsImageURL['userBased'][i]}}') no-repeat;background-size: cover; font-size:3em; ">
+                    </button>
               </form>
               <span class ="text-left text-small text-movie-title-small " style ="margin-top: -5px;"> {{itemsRecommended['userBased'][i]}}</span>
           </div>
@@ -126,10 +125,12 @@
           <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['recentPopular'][i]}}">
-                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px; width: 165px; height:240px; background: url('{{itemsImageURL['recentPopular'][i]}}') no-repeat;
-                            background-size: cover; font-size: 3em; "></button>
+                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image poster"
+                            style="background: url('{{itemsImageURL['recentPopular'][i]}}') no-repeat;background-size: cover; font-size: 3em;">
+                    </button>
+
               </form>
+
              <span class ="text-left text-small text-movie-title-small " style ="margin-top: -5px;"> {{itemsRecommended['recentPopular'][i]}}</span>
           </div>
         {% endfor %}
@@ -143,9 +144,9 @@
           <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
                 <input class="movie-image" type="hidden" width="200" height="250" name="clipName" value="{{itemsRecommended['classical'][i]}}">
-                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image"
-                            style=" margin-bottom: 10px;width: 165px; height:240px; background: url('{{itemsImageURL['classical'][i]}}') no-repeat;
-                            background-size: cover; font-size: 3em; "></button>
+                    <button type="submit" name="submit" value="selectClip" class="btn glyphicon glyphicon-play-circle movie-image poster"
+                            style="background: url('{{itemsImageURL['classical'][i]}}') no-repeat; background-size: cover; font-size: 3em;">
+                    </button>
               </form>
               <span class ="text-left text-small text-movie-title-small" style ="margin-top: -5px;"> {{itemsRecommended['classical'][i]}}</span>
           </div>

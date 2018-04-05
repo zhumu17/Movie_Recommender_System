@@ -173,6 +173,20 @@ h2{
 }
 
 
+.poster {
+    margin-bottom: 10px;
+    width: 165px;
+    height:240px;
+}
+@media (max-width:450px){
+.poster{
+    width:155px;
+    height:225px;
+    }
+}
+
+
+
 
 #menu-categories-title + div {
   margin-bottom: 50px;
