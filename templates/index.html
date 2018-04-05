@@ -224,6 +224,7 @@
 
                   <!--<iframe width=100% height="200" src="https://www.youtube.com/embed/iG_KZxLHozI?rel=0&amp;controls=0&amp;showinfo=0&amp;start=75&amp;autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=iG_KZxLHozI;" frameborder="0" ></iframe>-->
                   <img width=90%  src="../static/images/popcorn.jpg" alt="image not found">
+                  <br>
               </div>
                <div class="button-rate-it" >
                    <a href="#">
@@ -296,10 +297,12 @@
 
                 <div class="text-center" style="margin-top:150px;">
                  {% if priceList and priceURLList%}
-
+                    {% if userId%}
+                    {% else %}
                     <div style="margin-top:40px;">
                     <p class ="text-center" style="color:gold"> Interested In Seeing More Personalized Recommendations?
                     </div>
+
                     <a href="/signup">
                         <button class="btn btn-success btn-lg" style="margin:20px; background-color: #008000;">
                                         SIGN UP FOR FREE</button>
@@ -307,6 +310,7 @@
                     <div>
                         <a href="#"> <p> Not For Now...</p></a>
                     </div>
+                    {% endif %}
 
                     {% endif %}
                 </div>
