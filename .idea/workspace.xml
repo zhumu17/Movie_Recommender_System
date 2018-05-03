@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="07ecc1b9-3b0d-448f-b656-e07e917cc27f" name="Default" comment="updated">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,8 +32,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
-              <caret line="337" column="89" lean-forward="false" selection-start-line="337" selection-start-column="89" selection-end-line="337" selection-end-column="89" />
+            <state relative-caret-position="387">
+              <caret line="252" column="125" lean-forward="false" selection-start-line="252" selection-start-column="125" selection-end-line="252" selection-end-column="125" />
               <folding>
                 <element signature="n#style#0;n#button#0;n#form#0;n#div#0;n#div#3;n#section#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#div#3;n#section#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -95,7 +94,7 @@
       <find>NOW</find>
       <find>maybe</find>
       <find>$('a[href*=&quot;#&quot;]')</find>
-      <find>maybe</find>
+      <find>watch</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -1072,8 +1071,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="337" column="89" lean-forward="false" selection-start-line="337" selection-start-column="89" selection-end-line="337" selection-end-column="89" />
+        <state relative-caret-position="387">
+          <caret line="252" column="125" lean-forward="false" selection-start-line="252" selection-start-column="125" selection-end-line="252" selection-end-column="125" />
           <folding>
             <element signature="n#style#0;n#button#0;n#form#0;n#div#0;n#div#3;n#section#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#0;n#a#0;n#div#0;n#div#3;n#section#4;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
