@@ -20,6 +20,8 @@
       <link rel="stylesheet" href="../static/css/styles1.css">
 
   </head>
+
+
 <body>
   <header>
     <nav id="header-nav" class="navbar navbar-default">
@@ -78,7 +80,7 @@
     {% endif %}
     {% if itemsRecommended['itemBased'] %}
     <section class="row"  id="itemBasedGallery">
-        <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR RECENT RATING: <span class = "text-small" onclick="myFunction()"><a href="#itemBasedGallery"> (Refresh to See More...)</a></span>
+        <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR RECENT INTEREST: <span class = "text-small" onclick="myFunction()"><a href="#itemBasedGallery"> (Refresh to See More...)</a></span>
 
             {% for i in range(12) %}
           <div class="col-md-2 col-sm-3 col-xs-6 ">
@@ -178,9 +180,9 @@
                                 <form method="post" class="form-style">
                                     <button name="submit" type="submit" value="watchFullMovie" class="btn btn-success btn-lg"
                                             style="margin:20px; background-color: #008000;">
-                                        Watch This Full Movie Now </button>
+                                        Watch Full Movie </button>
                                 </form>
-                                <a href="#">
+                                <a href="#header-nav">
                                     <button class="btn btn-warning btn-lg" style="margin:20px; background-color: #B8860B;">
                                         Maybe Later...  </button>
                                 </a>
@@ -248,7 +250,7 @@
                              <p><input type="hidden" name = "itemToBuy" class="user-input" value="{{itemToRate}}"> </p>
                             <span class="button" >
                                     <button type="submit" name="submit" value="findPrice" class="btn btn-success btn-lg"
-                                            style="font-weight: 200; margin-top:30px; background-color: #008000;"> GO FOR IT!</button>
+                                            style="font-weight: 200; margin-top:30px; background-color: #008000;"> SEARCH MOVIE</button>
                             </span>
                             <div class="text-center text-small" style="margin-top:10px;">Searching may take up to 5 seconds...</div>
 
@@ -308,7 +310,10 @@
                                         SIGN UP FOR FREE</button>
                     </a>
                     <div>
-                        <a href="#"> <p> Not For Now...</p></a>
+                        <a href="#main-content">
+                            <button class="btn btn-warning btn-lg" style="margin:20px; background-color: #B8860B;" >
+                                        Just Show Me More...</button>
+                        </a>
                     </div>
                     {% endif %}
 
@@ -328,11 +333,10 @@
 
   <footer class="panel-footer">
     <div class="container">
-      <div class="text-center text-small" style="margin-bottom:0px;">Developed by: Mu Zhu | zhumu17@gmail.com |
+      <div class="text-center text-small" style="margin-bottom:0px;">Contact: Mu Zhu | zhumu17@gmail.com |
           <a href="https://www.linkedin.com/in/muzhu" target="_blank"> LinkedIn </a> |
-<!--
-            <a href="https://github.com/zhumu17/Movie_Recommender_System">  Github </a> |</div>
--->
+          <a href="https://github.com/zhumu17/Movie_Recommender_System" target="_blank">  Github </a> |
+      </div>
       <div class="text-center text-small" style="margin-bottom:0px;"> Copyright Reserved 2018 </div>
     </div>
   </footer>
@@ -347,7 +351,34 @@
   <script src="js/jquery-1.4.2.js"></script>
   <!--<script src="js/jquery-1.11.3.min.js"></script>-->
   <script src="js/bootstrap.min.js"></script>
-  <script src="js/script.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/script.js"></script>
+    <script>
+    $(document).ready(function(){
+      // Add smooth scrolling to all links
+      $("a").on('click', function(event) {
+
+        // Make sure this.hash has a value before overriding default behavior
+        if (this.hash !== "") {
+          // Prevent default anchor click behavior
+          event.preventDefault();
+
+          // Store hash
+          var hash = this.hash;
+
+          // Using jQuery's animate() method to add smooth page scroll
+          // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+          $('html, body').animate({
+            scrollTop: $(hash).offset().top
+          }, 800, function(){
+
+            // Add hash (#) to URL when done scrolling (default click behavior)
+            window.location.hash = hash;
+          });
+        } // End if
+      });
+    });
+    </script>
 </body>
 </html>
