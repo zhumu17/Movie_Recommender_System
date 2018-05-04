@@ -80,7 +80,7 @@
     {% endif %}
     {% if itemsRecommended['itemBased'] %}
     <section class="row"  id="itemBasedGallery">
-        <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR RECENT INTEREST: <span class = "text-small" onclick="myFunction()"><a href="#itemBasedGallery"> (Refresh to See More...)</a></span>
+        <p class ="text-left" style="margin-left:15px;color:#ADFF2F;"> BASED ON YOUR RECENT INTEREST: <span class = "text-small"><a href="#itemBasedGallery"> (Refresh to See More...)</a></span>
 
             {% for i in range(12) %}
           <div class="col-md-2 col-sm-3 col-xs-6 ">
@@ -99,8 +99,8 @@
     {% if userId %}
     {% if itemsRecommended['userBased'] %}
     <section class="row"  id="userBasedGallery">
-        <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR TASTES:
-            <span class = "text-small" onclick="myFunction()"><a href="#userBasedGallery"> (Refresh to See More...)</a></span>
+        <p class ="text-left" style="margin-left:15px;"> BASED ON YOUR PREFERENCES:
+            <span class = "text-small" ><a href="#userBasedGallery"> (Refresh to See More...)</a></span>
         {% for i in range(12) %}
           <div class="col-md-2 col-sm-3 col-xs-6 ">
               <form method="post">
@@ -205,7 +205,7 @@
 
                         <div class="button-rate-it" style="margin-top:-30px;">
                              <button name="submit" type="submit" class="btn btn-success btn-lg"
-                                     value="rateScore" style="background-color: #008000;"> Submit Rating</button>
+                                     value="rateScore" style="background-color: #008000;"> SUBMIT RATING</button>
                         </div>
 
                     </form>
@@ -229,7 +229,7 @@
                   <br>
               </div>
                <div class="button-rate-it" >
-                   <a href="#">
+                   <a href="#header-nav">
                        <button class="btn btn-danger btn-lg" style="background-color:#A52A2A;" > Select a Movie To Play Trailer</button>
                    </a>
                </div>
